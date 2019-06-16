@@ -1,5 +1,5 @@
 //
-//  OAuthController.swift
+//  OAuthManager.swift
 //  Reddit
 //
 //  Created by Adam Gastineau on 6/16/19.

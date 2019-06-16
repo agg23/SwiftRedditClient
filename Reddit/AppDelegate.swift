@@ -22,9 +22,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         provider.request(.getSubreddit("programming")) { (result) in
             do {
                 let response = try result.get()
-                let jsonResponse = try response.mapJSON()
+                let objectResponse = try response.map(Listing<Link>.self)
                 
-                print(jsonResponse)
+                print(objectResponse)
             } catch {
                 print(error)
             }
