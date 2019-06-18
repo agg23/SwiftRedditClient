@@ -10,14 +10,15 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-
+    let viewController = ListingViewController()
     @IBOutlet weak var window: NSWindow!
-
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        let apiManager = RedditAPIManager()
-        apiManager.getSubreddit()
+        window.minSize = NSSize(width: 600, height: 400)
+        window.contentViewController = viewController
+//        let apiManager = RedditAPIManager()
+//        apiManager.getSubreddit()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

@@ -26,6 +26,8 @@
 		66EB269222B7110900824102 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66EB269122B7110900824102 /* PromiseKit.framework */; };
 		66EB269422B7116D00824102 /* RedditAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269322B7116D00824102 /* RedditAPIManager.swift */; };
 		66EB269622B8708800824102 /* APIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269522B8708800824102 /* APIUtilities.swift */; };
+		66EB269922B87A7F00824102 /* ListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269822B87A7F00824102 /* ListingViewController.swift */; };
+		66EB269B22B87FA500824102 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66EB269A22B87FA500824102 /* SnapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		66EB269122B7110900824102 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/Mac/PromiseKit.framework; sourceTree = "<group>"; };
 		66EB269322B7116D00824102 /* RedditAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPIManager.swift; sourceTree = "<group>"; };
 		66EB269522B8708800824102 /* APIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUtilities.swift; sourceTree = "<group>"; };
+		66EB269822B87A7F00824102 /* ListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewController.swift; sourceTree = "<group>"; };
+		66EB269A22B87FA500824102 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/Mac/SnapKit.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66EB269B22B87FA500824102 /* SnapKit.framework in Frameworks */,
 				66EB269222B7110900824102 /* PromiseKit.framework in Frameworks */,
 				661734D222B6B669005F557F /* Result.framework in Frameworks */,
 				661734CA22B6ADCF005F557F /* Moya.framework in Frameworks */,
@@ -128,6 +133,7 @@
 		6617348722B69D6C005F557F /* Reddit */ = {
 			isa = PBXGroup;
 			children = (
+				66EB269722B87A5F00824102 /* Views */,
 				661734BA22B6A5E1005F557F /* Networking */,
 				6617348822B69D6C005F557F /* AppDelegate.swift */,
 				6617348A22B69D6D005F557F /* Assets.xcassets */,
@@ -168,6 +174,7 @@
 		661734BD22B6ACA6005F557F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66EB269A22B87FA500824102 /* SnapKit.framework */,
 				66EB269122B7110900824102 /* PromiseKit.framework */,
 				661734D122B6B669005F557F /* Result.framework */,
 				661734C822B6ADCF005F557F /* Alamofire.framework */,
@@ -214,6 +221,14 @@
 				661734DA22B6CF43005F557F /* Votable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		66EB269722B87A5F00824102 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				66EB269822B87A7F00824102 /* ListingViewController.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +376,7 @@
 				"$(SRCROOT)/Carthage/Build/Mac/OAuth2.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/Result.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/PromiseKit.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/SnapKit.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -370,6 +386,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/OAuth2.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Result.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PromiseKit.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SnapKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -386,6 +403,7 @@
 				6617348922B69D6C005F557F /* AppDelegate.swift in Sources */,
 				66EB268E22B6D36300824102 /* Listing.swift in Sources */,
 				661734DB22B6CF43005F557F /* Votable.swift in Sources */,
+				66EB269922B87A7F00824102 /* ListingViewController.swift in Sources */,
 				66EB269422B7116D00824102 /* RedditAPIManager.swift in Sources */,
 				661734BC22B6A5F5005F557F /* OAuthManager.swift in Sources */,
 				661734DD22B6CF83005F557F /* Link.swift in Sources */,
