@@ -7,28 +7,17 @@
 //
 
 import Cocoa
-import Moya
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    
-    let provider = MoyaProvider<RedditAPI>()
 
     @IBOutlet weak var window: NSWindow!
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        provider.request(.getSubreddit("programming")) { (result) in
-            do {
-                let response = try result.get()
-                let objectResponse = try response.map(Listing<Link>.self)
-                
-                print(objectResponse)
-            } catch {
-                print(error)
-            }
-        }
+        let apiManager = RedditAPIManager()
+        apiManager.getSubreddit()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

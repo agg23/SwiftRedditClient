@@ -8,11 +8,11 @@
 
 import Moya
 
-enum RedditAPI {
+enum RedditAPITarget {
     case getSubreddit(_: String)
 }
 
-extension RedditAPI: TargetType {
+extension RedditAPITarget: TargetType {
     var baseURL: URL {
         return URL(string: "https://www.reddit.com")!
     }

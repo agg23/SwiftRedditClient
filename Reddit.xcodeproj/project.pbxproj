@@ -16,13 +16,16 @@
 		661734CA22B6ADCF005F557F /* Moya.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661734C722B6ADCF005F557F /* Moya.framework */; };
 		661734CB22B6ADCF005F557F /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661734C822B6ADCF005F557F /* Alamofire.framework */; };
 		661734CC22B6ADCF005F557F /* OAuth2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661734C922B6ADCF005F557F /* OAuth2.framework */; };
-		661734D022B6B13B005F557F /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661734CF22B6B13B005F557F /* RedditAPI.swift */; };
+		661734D022B6B13B005F557F /* RedditAPITarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661734CF22B6B13B005F557F /* RedditAPITarget.swift */; };
 		661734D222B6B669005F557F /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661734D122B6B669005F557F /* Result.framework */; };
 		661734D922B6CF13005F557F /* Created.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661734D822B6CF13005F557F /* Created.swift */; };
 		661734DB22B6CF43005F557F /* Votable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661734DA22B6CF43005F557F /* Votable.swift */; };
 		661734DD22B6CF83005F557F /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661734DC22B6CF83005F557F /* Link.swift */; };
 		66EB268E22B6D36300824102 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB268D22B6D36300824102 /* Listing.swift */; };
 		66EB269022B6D3DB00824102 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB268F22B6D3DB00824102 /* Thing.swift */; };
+		66EB269222B7110900824102 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66EB269122B7110900824102 /* PromiseKit.framework */; };
+		66EB269422B7116D00824102 /* RedditAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269322B7116D00824102 /* RedditAPIManager.swift */; };
+		66EB269622B8708800824102 /* APIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269522B8708800824102 /* APIUtilities.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,13 +62,16 @@
 		661734C722B6ADCF005F557F /* Moya.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Moya.framework; path = Carthage/Build/Mac/Moya.framework; sourceTree = "<group>"; };
 		661734C822B6ADCF005F557F /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 		661734C922B6ADCF005F557F /* OAuth2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuth2.framework; path = Carthage/Build/Mac/OAuth2.framework; sourceTree = "<group>"; };
-		661734CF22B6B13B005F557F /* RedditAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
+		661734CF22B6B13B005F557F /* RedditAPITarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPITarget.swift; sourceTree = "<group>"; };
 		661734D122B6B669005F557F /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
 		661734D822B6CF13005F557F /* Created.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Created.swift; sourceTree = "<group>"; };
 		661734DA22B6CF43005F557F /* Votable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Votable.swift; sourceTree = "<group>"; };
 		661734DC22B6CF83005F557F /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		66EB268D22B6D36300824102 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Listing.swift; path = Reddit/Networking/APIs/Reddit/Models/Listing.swift; sourceTree = SOURCE_ROOT; };
 		66EB268F22B6D3DB00824102 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
+		66EB269122B7110900824102 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/Mac/PromiseKit.framework; sourceTree = "<group>"; };
+		66EB269322B7116D00824102 /* RedditAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPIManager.swift; sourceTree = "<group>"; };
+		66EB269522B8708800824102 /* APIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUtilities.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66EB269222B7110900824102 /* PromiseKit.framework in Frameworks */,
 				661734D222B6B669005F557F /* Result.framework in Frameworks */,
 				661734CA22B6ADCF005F557F /* Moya.framework in Frameworks */,
 				661734CB22B6ADCF005F557F /* Alamofire.framework in Frameworks */,
@@ -161,6 +168,7 @@
 		661734BD22B6ACA6005F557F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				66EB269122B7110900824102 /* PromiseKit.framework */,
 				661734D122B6B669005F557F /* Result.framework */,
 				661734C822B6ADCF005F557F /* Alamofire.framework */,
 				661734C722B6ADCF005F557F /* Moya.framework */,
@@ -173,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				661734D322B6B886005F557F /* Reddit */,
+				66EB269522B8708800824102 /* APIUtilities.swift */,
 			);
 			path = APIs;
 			sourceTree = "<group>";
@@ -181,7 +190,8 @@
 			isa = PBXGroup;
 			children = (
 				661734D422B6B88F005F557F /* Models */,
-				661734CF22B6B13B005F557F /* RedditAPI.swift */,
+				661734CF22B6B13B005F557F /* RedditAPITarget.swift */,
+				66EB269322B7116D00824102 /* RedditAPIManager.swift */,
 			);
 			path = Reddit;
 			sourceTree = "<group>";
@@ -350,6 +360,7 @@
 				"$(SRCROOT)/Carthage/Build/Mac/Moya.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/OAuth2.framework",
 				"$(SRCROOT)/Carthage/Build/Mac/Result.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/PromiseKit.framework",
 			);
 			outputFileListPaths = (
 			);
@@ -358,6 +369,7 @@
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Moya.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/OAuth2.framework",
 				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Result.framework",
+				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/PromiseKit.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -374,10 +386,12 @@
 				6617348922B69D6C005F557F /* AppDelegate.swift in Sources */,
 				66EB268E22B6D36300824102 /* Listing.swift in Sources */,
 				661734DB22B6CF43005F557F /* Votable.swift in Sources */,
+				66EB269422B7116D00824102 /* RedditAPIManager.swift in Sources */,
 				661734BC22B6A5F5005F557F /* OAuthManager.swift in Sources */,
 				661734DD22B6CF83005F557F /* Link.swift in Sources */,
 				661734D922B6CF13005F557F /* Created.swift in Sources */,
-				661734D022B6B13B005F557F /* RedditAPI.swift in Sources */,
+				661734D022B6B13B005F557F /* RedditAPITarget.swift in Sources */,
+				66EB269622B8708800824102 /* APIUtilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
