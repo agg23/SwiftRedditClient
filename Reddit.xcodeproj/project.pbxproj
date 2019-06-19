@@ -28,6 +28,8 @@
 		66EB269622B8708800824102 /* APIUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269522B8708800824102 /* APIUtilities.swift */; };
 		66EB269922B87A7F00824102 /* ListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269822B87A7F00824102 /* ListingViewController.swift */; };
 		66EB269B22B87FA500824102 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66EB269A22B87FA500824102 /* SnapKit.framework */; };
+		66EB269E22B9A98600824102 /* LinkTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269D22B9A98600824102 /* LinkTableViewRow.swift */; };
+		66EB26A122B9B9CF00824102 /* NSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A022B9B9CF00824102 /* NSLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,6 +78,8 @@
 		66EB269522B8708800824102 /* APIUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIUtilities.swift; sourceTree = "<group>"; };
 		66EB269822B87A7F00824102 /* ListingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingViewController.swift; sourceTree = "<group>"; };
 		66EB269A22B87FA500824102 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/Mac/SnapKit.framework; sourceTree = "<group>"; };
+		66EB269D22B9A98600824102 /* LinkTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTableViewRow.swift; sourceTree = "<group>"; };
+		66EB26A022B9B9CF00824102 /* NSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,7 +137,7 @@
 		6617348722B69D6C005F557F /* Reddit */ = {
 			isa = PBXGroup;
 			children = (
-				66EB269722B87A5F00824102 /* Views */,
+				66EB269722B87A5F00824102 /* Controllers */,
 				661734BA22B6A5E1005F557F /* Networking */,
 				6617348822B69D6C005F557F /* AppDelegate.swift */,
 				6617348A22B69D6D005F557F /* Assets.xcassets */,
@@ -223,12 +227,30 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
-		66EB269722B87A5F00824102 /* Views */ = {
+		66EB269722B87A5F00824102 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				66EB269C22B9A95E00824102 /* Views */,
 				66EB269822B87A7F00824102 /* ListingViewController.swift */,
 			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		66EB269C22B9A95E00824102 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				66EB269F22B9B9C100824102 /* Convenience */,
+				66EB269D22B9A98600824102 /* LinkTableViewRow.swift */,
+			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		66EB269F22B9B9C100824102 /* Convenience */ = {
+			isa = PBXGroup;
+			children = (
+				66EB26A022B9B9CF00824102 /* NSLabel.swift */,
+			);
+			path = Convenience;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -409,6 +431,8 @@
 				661734DD22B6CF83005F557F /* Link.swift in Sources */,
 				661734D922B6CF13005F557F /* Created.swift in Sources */,
 				661734D022B6B13B005F557F /* RedditAPITarget.swift in Sources */,
+				66EB269E22B9A98600824102 /* LinkTableViewRow.swift in Sources */,
+				66EB26A122B9B9CF00824102 /* NSLabel.swift in Sources */,
 				66EB269622B8708800824102 /* APIUtilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
