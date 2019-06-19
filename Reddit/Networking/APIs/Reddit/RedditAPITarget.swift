@@ -9,7 +9,25 @@
 import Moya
 
 enum RedditAPITarget {
-    case getSubreddit(_: String)
+    case subreddit(_: String, type: RedditAPISubredditType)
+}
+
+enum RedditAPISubredditType {
+    case hot
+    case new
+    case rising
+    case top(_: RedditAPISubredditTimeInterval)
+    case controversial(_: RedditAPISubredditTimeInterval)
+    case gilded
+}
+
+enum RedditAPISubredditTimeInterval: String {
+    case hour
+    case day
+    case week
+    case month
+    case year
+    case all
 }
 
 extension RedditAPITarget: TargetType {
@@ -19,14 +37,26 @@ extension RedditAPITarget: TargetType {
     
     var path: String {
         switch self {
-        case .getSubreddit(let subreddit):
-            return "/r/\(subreddit)/new.json"
+        case .subreddit(let subreddit, let type):
+            var typeString = "\(type)"
+            
+            switch type {
+            case .top(_):
+                typeString = "top"
+                break
+            case .controversial(_):
+                typeString = "controversial"
+                break
+            default:
+                break
+            }
+            return "/r/\(subreddit)/\(typeString).json"
         }
     }
     
     var method: Method {
         switch self {
-        case .getSubreddit(_):
+        case .subreddit(_):
             return .get
         }
     }
@@ -37,8 +67,13 @@ extension RedditAPITarget: TargetType {
     
     var task: Task {
         switch self {
-        case .getSubreddit(_):
-            return .requestPlain
+        case .subreddit(_, let type):
+            switch type {
+            case .top(let interval), .controversial(let interval):
+                return .requestParameters(parameters: ["t": interval.rawValue], encoding: URLEncoding.default)
+            default:
+                return .requestPlain
+            }
         }
     }
     

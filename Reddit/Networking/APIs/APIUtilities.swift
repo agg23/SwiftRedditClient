@@ -21,6 +21,7 @@ extension MoyaProvider {
                         resolver.fulfill(objectResponse)
                     } catch {
                         print("Error")
+                        print(response)
                         resolver.reject(error)
                     }
                 case let .failure(error):
