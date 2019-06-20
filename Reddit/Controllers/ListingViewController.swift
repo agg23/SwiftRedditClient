@@ -21,16 +21,21 @@ class ListingViewController: NSViewController {
     
     let progressView = NSProgressIndicator()
     
+    let topStackView = NSStackView()
+    let subredditTextField = NSTextField()
+    
     let hotButton = NSButton()
     let newButton = NSButton()
     let topButton = NSButton()
     let buttonStackView = NSStackView()
     
+    var subreddit = "programming"
     var data: Listing<Link>?
     
     override func loadView() {
         view = NSView()
         view.addSubview(scrollView)
+        view.addSubview(topStackView, positioned: .above, relativeTo: nil)
         view.addSubview(progressView, positioned: .above, relativeTo: nil)
         view.addSubview(buttonStackView, positioned: .above, relativeTo: nil)
         
@@ -38,7 +43,7 @@ class ListingViewController: NSViewController {
         scrollView.documentView = tableView
 
         scrollView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.view.snp.topMargin)
+            make.top.equalTo(topStackView.snp.bottom)
             make.left.equalTo(self.view.snp.leftMargin)
             make.right.equalTo(self.view.snp.rightMargin)
             make.bottom.equalTo(self.view.snp.bottomMargin)
@@ -52,15 +57,32 @@ class ListingViewController: NSViewController {
             make.center.equalTo(self.view)
         }
         
+        subredditTextField.action = #selector(subredditEntered)
+        subredditTextField.target = self
+        subredditTextField.stringValue = subreddit
+        
+        topStackView.setViews([subredditTextField], in: .center)
+        topStackView.orientation = .horizontal
+        
+        topStackView.snp.makeConstraints { (make) in
+            make.height.equalTo(40)
+            make.top.equalTo(self.view.snp.topMargin)
+            make.left.equalTo(self.view.snp.leftMargin)
+            make.right.equalTo(self.view.snp.rightMargin)
+        }
+        
         hotButton.title = "Hot"
         hotButton.action = #selector(hotClicked)
         hotButton.target = self
+        hotButton.bezelStyle = .rounded
         newButton.title = "New"
         newButton.action = #selector(newClicked)
         newButton.target = self
+        newButton.bezelStyle = .rounded
         topButton.title = "Top"
         topButton.action = #selector(topClicked)
         topButton.target = self
+        topButton.bezelStyle = .rounded
         
         buttonStackView.setViews([hotButton, newButton, topButton], in: .center)
         buttonStackView.orientation = .horizontal
@@ -83,13 +105,14 @@ class ListingViewController: NSViewController {
     }
     
     override func viewDidAppear() {
-        fetchSubreddit(with: .hot)
+        fetchSubreddit(from: subreddit, with: .hot)
     }
     
-    private func fetchSubreddit(with type: RedditAPISubredditType) {
+    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType) {
         firstly { () -> Promise<Listing<Link>> in
             self.showSpinner()
-            return redditProvider.request(from: .subreddit("programming", type: type))
+            self.subreddit = subreddit
+            return redditProvider.request(from: .subreddit(subreddit, type: type))
         }.done { (data) in
             self.data = data
             self.tableView.reloadData()
@@ -109,18 +132,22 @@ class ListingViewController: NSViewController {
         progressView.isHidden = true
     }
     
-    // MARK: Buttons
+    // MARK: Input
+    
+    @objc private func subredditEntered() {
+        fetchSubreddit(from: subredditTextField.stringValue, with: .hot)
+    }
     
     @objc private func hotClicked() {
-        fetchSubreddit(with: .hot)
+        fetchSubreddit(from: subreddit, with: .hot)
     }
     
     @objc private func newClicked() {
-        fetchSubreddit(with: .new)
+        fetchSubreddit(from: subreddit, with: .new)
     }
     
     @objc private func topClicked() {
-        fetchSubreddit(with: .top(.all))
+        fetchSubreddit(from: subreddit, with: .top(.all))
     }
 }
 
