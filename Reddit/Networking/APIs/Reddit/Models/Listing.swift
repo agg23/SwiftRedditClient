@@ -25,7 +25,7 @@ struct Listing<T: Decodable>: Decodable {
     let before: String?
     let after: String?
     
-    let modhash: String
+    let modhash: String?
     let children: [T]
     
     init(from decoder: Decoder) throws {
@@ -37,7 +37,7 @@ struct Listing<T: Decodable>: Decodable {
 
         before = try container.decodeIfPresent(String.self, forKey: .before)
         after = try container.decodeIfPresent(String.self, forKey: .after)
-        modhash = try container.decode(String.self, forKey: .modhash)
+        modhash = try container.decodeIfPresent(String.self, forKey: .modhash)
         
         children = try container.decode([T].self, forKey: .children)        
     }

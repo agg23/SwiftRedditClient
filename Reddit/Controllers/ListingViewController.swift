@@ -8,14 +8,11 @@
 
 import AppKit
 import SnapKit
-import Moya
 import PromiseKit
 
 let viewIdentifier = NSUserInterfaceItemIdentifier("listingViewRow")
 
 class ListingViewController: NSViewController {
-    let redditProvider = MoyaProvider<RedditAPITarget>()
-    
     let scrollView = NSScrollView()
     let tableView = NSTableView()
     
@@ -105,20 +102,44 @@ class ListingViewController: NSViewController {
     }
     
     override func viewDidAppear() {
-        fetchSubreddit(from: subreddit, with: .hot)
+//        authorizeReddit()
+//        fetchSubreddit(from: subreddit, with: .hot)
+        firstly { () -> Promise<Void> in
+            RedditAPI.shared.authenticate(with: view.window)
+        }.done { () in
+            print("Auth complete")
+            self.getMessages()
+        }.catch { (error) in
+            print(error)
+        }
+        
+//        getMessages()
     }
     
     private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType) {
         firstly { () -> Promise<Listing<Link>> in
             self.showSpinner()
             self.subreddit = subreddit
-            return redditProvider.request(from: .subreddit(subreddit, type: type))
+            return RedditAPI.shared.request(from: .subreddit(subreddit, type: type))
         }.done { (data) in
             self.data = data
             self.tableView.reloadData()
             self.hideSpinner()
         }.catch { (error) in
             print(error)
+        }
+    }
+    
+    private func getMessages() {
+        firstly { () -> Promise<Listing<Link>> in
+            self.showSpinner()
+            return RedditAPI.shared.request(from: .messages)
+            }.done { (data) in
+                self.data = data
+                self.tableView.reloadData()
+                self.hideSpinner()
+            }.catch { (error) in
+                print(error)
         }
     }
     

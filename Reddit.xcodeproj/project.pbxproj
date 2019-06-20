@@ -29,6 +29,8 @@
 		66EB269B22B87FA500824102 /* SnapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66EB269A22B87FA500824102 /* SnapKit.framework */; };
 		66EB269E22B9A98600824102 /* LinkTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB269D22B9A98600824102 /* LinkTableViewRow.swift */; };
 		66EB26A122B9B9CF00824102 /* NSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A022B9B9CF00824102 /* NSLabel.swift */; };
+		66EB26A322BB291800824102 /* OAuthRetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A222BB291800824102 /* OAuthRetryHandler.swift */; };
+		66EB26A522BB2AEC00824102 /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A422BB2AEC00824102 /* RedditAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,6 +80,8 @@
 		66EB269A22B87FA500824102 /* SnapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SnapKit.framework; path = Carthage/Build/Mac/SnapKit.framework; sourceTree = "<group>"; };
 		66EB269D22B9A98600824102 /* LinkTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkTableViewRow.swift; sourceTree = "<group>"; };
 		66EB26A022B9B9CF00824102 /* NSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLabel.swift; sourceTree = "<group>"; };
+		66EB26A222BB291800824102 /* OAuthRetryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthRetryHandler.swift; sourceTree = "<group>"; };
+		66EB26A422BB2AEC00824102 /* RedditAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,7 @@
 			children = (
 				661734CE22B6B12D005F557F /* APIs */,
 				661734BB22B6A5F5005F557F /* OAuthManager.swift */,
+				66EB26A222BB291800824102 /* OAuthRetryHandler.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -200,6 +205,7 @@
 			children = (
 				661734D422B6B88F005F557F /* Models */,
 				661734CF22B6B13B005F557F /* RedditAPITarget.swift */,
+				66EB26A422BB2AEC00824102 /* RedditAPI.swift */,
 			);
 			path = Reddit;
 			sourceTree = "<group>";
@@ -418,9 +424,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66EB26A522BB2AEC00824102 /* RedditAPI.swift in Sources */,
 				66EB269022B6D3DB00824102 /* Thing.swift in Sources */,
 				6617348922B69D6C005F557F /* AppDelegate.swift in Sources */,
 				66EB268E22B6D36300824102 /* Listing.swift in Sources */,
+				66EB26A322BB291800824102 /* OAuthRetryHandler.swift in Sources */,
 				661734DB22B6CF43005F557F /* Votable.swift in Sources */,
 				66EB269922B87A7F00824102 /* ListingViewController.swift in Sources */,
 				661734BC22B6A5F5005F557F /* OAuthManager.swift in Sources */,

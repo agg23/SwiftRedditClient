@@ -17,12 +17,20 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to initialize your application
         window.minSize = NSSize(width: 600, height: 400)
         window.contentViewController = viewController
-//        let apiManager = RedditAPIManager()
-//        apiManager.getSubreddit()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
         // Insert code here to tear down your application
+    }
+    
+    func application(_ application: NSApplication, open urls: [URL]) {
+        for url in urls {
+            debugPrint("URL received: \(String(describing: url.host))")
+            if (url.host == "oauth") {
+                debugPrint("Handling oauth at: \(url)")
+                OAuthManager.shared.redditOAuth.handleRedirectURL(url)
+            }
+        }
     }
 }
 

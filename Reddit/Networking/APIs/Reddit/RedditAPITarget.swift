@@ -10,6 +10,7 @@ import Moya
 
 enum RedditAPITarget {
     case subreddit(_: String, type: RedditAPISubredditType)
+    case messages
 }
 
 enum RedditAPISubredditType {
@@ -32,7 +33,11 @@ enum RedditAPISubredditTimeInterval: String {
 
 extension RedditAPITarget: TargetType {
     var baseURL: URL {
-        return URL(string: "https://www.reddit.com")!
+        guard requiresOAuth else {
+            return URL(string: "https://messages.reddit.com")!
+        }
+
+        return URL(string: "https://oauth.reddit.com")!
     }
     
     var path: String {
@@ -51,12 +56,16 @@ extension RedditAPITarget: TargetType {
                 break
             }
             return "/r/\(subreddit)/\(typeString).json"
+        case .messages:
+            return "/message/inbox.json"
         }
     }
     
     var method: Method {
         switch self {
         case .subreddit(_):
+            return .get
+        case .messages:
             return .get
         }
     }
@@ -74,10 +83,21 @@ extension RedditAPITarget: TargetType {
             default:
                 return .requestPlain
             }
+        case .messages:
+            return .requestPlain
         }
     }
     
     var headers: [String : String]? {
         return [:]
+    }
+    
+    var requiresOAuth: Bool {
+        switch self {
+        case .messages:
+            return true
+        default:
+            return false
+        }
     }
 }
