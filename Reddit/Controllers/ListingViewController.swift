@@ -27,7 +27,7 @@ class ListingViewController: NSViewController {
     let buttonStackView = NSStackView()
     
     var subreddit = "programming"
-    var data: Listing<Link>?
+    var data: Listing<Message>?
     
     override func loadView() {
         view = NSView()
@@ -122,7 +122,7 @@ class ListingViewController: NSViewController {
             self.subreddit = subreddit
             return RedditAPI.shared.request(from: .subreddit(subreddit, type: type))
         }.done { (data) in
-            self.data = data
+//            self.data = data
             self.tableView.reloadData()
             self.hideSpinner()
         }.catch { (error) in
@@ -131,7 +131,7 @@ class ListingViewController: NSViewController {
     }
     
     private func getMessages() {
-        firstly { () -> Promise<Listing<Link>> in
+        firstly { () -> Promise<Listing<Message>> in
             self.showSpinner()
             return RedditAPI.shared.request(from: .messages)
             }.done { (data) in
@@ -185,7 +185,7 @@ extension ListingViewController: NSTableViewDelegate, NSTableViewDataSource {
             return rowView
         }
         
-        rowView?.titleLabel.stringValue = link.title
+        rowView?.titleLabel.stringValue = link.subject
         
         return rowView
     }

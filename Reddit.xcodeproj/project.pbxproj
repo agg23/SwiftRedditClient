@@ -31,6 +31,7 @@
 		66EB26A122B9B9CF00824102 /* NSLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A022B9B9CF00824102 /* NSLabel.swift */; };
 		66EB26A322BB291800824102 /* OAuthRetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A222BB291800824102 /* OAuthRetryHandler.swift */; };
 		66EB26A522BB2AEC00824102 /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A422BB2AEC00824102 /* RedditAPI.swift */; };
+		66EB26A722BC6C2F00824102 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A622BC6C2F00824102 /* Message.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 		66EB26A022B9B9CF00824102 /* NSLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLabel.swift; sourceTree = "<group>"; };
 		66EB26A222BB291800824102 /* OAuthRetryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthRetryHandler.swift; sourceTree = "<group>"; };
 		66EB26A422BB2AEC00824102 /* RedditAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
+		66EB26A622BC6C2F00824102 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -216,6 +218,7 @@
 				661734D722B6CF02005F557F /* Protocol */,
 				66EB268D22B6D36300824102 /* Listing.swift */,
 				661734DC22B6CF83005F557F /* Link.swift */,
+				66EB26A622BC6C2F00824102 /* Message.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				661734D922B6CF13005F557F /* Created.swift in Sources */,
 				661734D022B6B13B005F557F /* RedditAPITarget.swift in Sources */,
 				66EB269E22B9A98600824102 /* LinkTableViewRow.swift in Sources */,
+				66EB26A722BC6C2F00824102 /* Message.swift in Sources */,
 				66EB26A122B9B9CF00824102 /* NSLabel.swift in Sources */,
 				66EB269622B8708800824102 /* APIUtilities.swift in Sources */,
 			);
