@@ -10,9 +10,9 @@ import AppKit
 import SnapKit
 import PromiseKit
 
-let viewIdentifier = NSUserInterfaceItemIdentifier("listingViewRow")
-
 class ListingViewController<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
+    let viewIdentifier = NSUserInterfaceItemIdentifier("listingViewRow.\(TCellView.self)")
+    
     let scrollView = NSScrollView()
     let tableView = NSTableView()
     
