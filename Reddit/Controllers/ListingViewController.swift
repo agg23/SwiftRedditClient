@@ -12,7 +12,7 @@ import PromiseKit
 
 let viewIdentifier = NSUserInterfaceItemIdentifier("listingViewRow")
 
-class ListingViewController: NSViewController {
+class ListingViewController<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
     let scrollView = NSScrollView()
     let tableView = NSTableView()
     
@@ -27,7 +27,7 @@ class ListingViewController: NSViewController {
     let buttonStackView = NSStackView()
     
     var subreddit = "programming"
-    var data: CommentListing?
+    public var data: [TData]?
     
     override func loadView() {
         view = NSView()
@@ -104,67 +104,71 @@ class ListingViewController: NSViewController {
     override func viewDidAppear() {
 //        authorizeReddit()
 //        fetchSubreddit(from: subreddit, with: .hot)
-        firstly { () -> Promise<Void> in
-            RedditAPI.shared.authenticate(with: view.window)
-        }.done { () in
-            print("Auth complete")
-//            self.getMessages()
-            self.getComments()
-        }.catch { (error) in
-            print(error)
-        }
-        
-        getComments()
+//        firstly { () -> Promise<Void> in
+//            RedditAPI.shared.authenticate(with: view.window)
+//        }.done { () in
+//            print("Auth complete")
+////            self.getMessages()
+//            self.getComments()
+//        }.catch { (error) in
+//            print(error)
+//        }
+//
+//        getComments()
         
 //        getMessages()
     }
     
-    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType) {
-        firstly { () -> Promise<Listing<Link>> in
-            self.showSpinner()
-            self.subreddit = subreddit
-            return RedditAPI.shared.request(from: .subreddit(subreddit, type: type))
-        }.done { (data) in
-//            self.data = data
-            self.tableView.reloadData()
-            self.hideSpinner()
-        }.catch { (error) in
-            print(error)
-        }
+//    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType) {
+//        firstly { () -> Promise<Listing<Link>> in
+//            self.showSpinner()
+//            self.subreddit = subreddit
+//            return RedditAPI.shared.request(from: .subreddit(subreddit, type: type))
+//        }.done { (data) in
+////            self.data = data
+//            self.tableView.reloadData()
+//            self.hideSpinner()
+//        }.catch { (error) in
+//            print(error)
+//        }
+//    }
+//
+//    private func getMessages() {
+//        firstly { () -> Promise<Listing<Message>> in
+//            self.showSpinner()
+//            return RedditAPI.shared.request(from: .messages)
+//            }.done { (data) in
+////                self.data = data
+//                self.tableView.reloadData()
+//                self.hideSpinner()
+//            }.catch { (error) in
+//                print(error)
+//        }
+//    }
+//
+//    private func getComments() {
+//        firstly { () -> Promise<CommentsResponse> in
+//            self.showSpinner()
+//            return RedditAPI.shared.request(from: .comments(in: "programming", on: "c3h9gw"))
+//        }.done { (data) in
+//            self.data = data.comments
+//            self.tableView.reloadData()
+//            self.hideSpinner()
+//        }.catch { (error) in
+//            print(error)
+//        }
+//    }
+    
+    public func reloadTable() {
+        tableView.reloadData()
     }
     
-    private func getMessages() {
-        firstly { () -> Promise<Listing<Message>> in
-            self.showSpinner()
-            return RedditAPI.shared.request(from: .messages)
-            }.done { (data) in
-//                self.data = data
-                self.tableView.reloadData()
-                self.hideSpinner()
-            }.catch { (error) in
-                print(error)
-        }
-    }
-    
-    private func getComments() {
-        firstly { () -> Promise<CommentsResponse> in
-            self.showSpinner()
-            return RedditAPI.shared.request(from: .comments(in: "programming", on: "c3h9gw"))
-            }.done { (data) in
-                self.data = data.comments
-                self.tableView.reloadData()
-                self.hideSpinner()
-            }.catch { (error) in
-                print(error)
-        }
-    }
-    
-    private func showSpinner() {
+    public func showSpinner() {
         progressView.isHidden = false
         progressView.startAnimation(self)
     }
     
-    private func hideSpinner() {
+    public func hideSpinner() {
         progressView.stopAnimation(self)
         progressView.isHidden = true
     }
@@ -172,42 +176,42 @@ class ListingViewController: NSViewController {
     // MARK: Input
     
     @objc private func subredditEntered() {
-        fetchSubreddit(from: subredditTextField.stringValue, with: .hot)
+//        fetchSubreddit(from: subredditTextField.stringValue, with: .hot)
     }
     
     @objc private func hotClicked() {
-        fetchSubreddit(from: subreddit, with: .hot)
+//        fetchSubreddit(from: subreddit, with: .hot)
     }
     
     @objc private func newClicked() {
-        fetchSubreddit(from: subreddit, with: .new)
+//        fetchSubreddit(from: subreddit, with: .new)
     }
     
     @objc private func topClicked() {
-        fetchSubreddit(from: subreddit, with: .top(.all))
+//        fetchSubreddit(from: subreddit, with: .top(.all))
     }
-}
-
-extension ListingViewController: NSTableViewDelegate, NSTableViewDataSource {
+    
+    // MARK: NSTableViewDelegate, NSTableViewDataSource
+    // These cannot appear in an extension due to the generics and ObjC
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        var rowView = tableView.makeView(withIdentifier: viewIdentifier, owner: self) as? LinkTableViewRow
+        var rowView = tableView.makeView(withIdentifier: viewIdentifier, owner: self) as? TCellView
         
         if rowView == nil {
-            rowView = LinkTableViewRow()
+            rowView = TCellView()
             rowView?.identifier = viewIdentifier
         }
         
-        guard let link = data?.comments[row] else {
+        guard let value = data?[row] else {
             return rowView
         }
         
-        rowView?.titleLabel.stringValue = link.body
+        rowView?.data = value
         
         return rowView
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return data?.comments.count ?? 0
+        return data?.count ?? 0
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {

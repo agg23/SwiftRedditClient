@@ -35,7 +35,7 @@ enum RedditAPISubredditTimeInterval: String {
 extension RedditAPITarget: TargetType {
     var baseURL: URL {
         guard requiresOAuth else {
-            return URL(string: "https://messages.reddit.com")!
+            return URL(string: "https://www.reddit.com")!
         }
 
         return URL(string: "https://oauth.reddit.com")!
@@ -101,8 +101,6 @@ extension RedditAPITarget: TargetType {
     
     var requiresOAuth: Bool {
         switch self {
-        case .comments(_):
-            return true
         case .messages:
             return true
         default:

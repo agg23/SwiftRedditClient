@@ -9,7 +9,18 @@
 import AppKit
 import SnapKit
 
-class LinkTableViewRow: NSView {
+class LinkTableViewRow: ListingTableViewRow<Link> {
+    // MARK: ListingTableViewRow
+    override var data: Link? {
+        get {
+            return _data
+        }
+        set {
+            _data = newValue
+            titleLabel.stringValue = _data?.title ?? ""
+        }
+    }
+    
     let titleLabel = NSLabel()
     
     override init(frame frameRect: NSRect) {

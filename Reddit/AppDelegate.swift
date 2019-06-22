@@ -7,16 +7,29 @@
 //
 
 import Cocoa
+import PromiseKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    let viewController = ListingViewController()
+    let viewController = ListingViewController<Link, LinkTableViewRow>()
     @IBOutlet weak var window: NSWindow!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
         window.minSize = NSSize(width: 600, height: 400)
         window.contentViewController = viewController
+        
+        firstly { () -> Promise<Listing<Link>> in
+            self.viewController.showSpinner()
+//            self.subreddit = subreddit
+            return RedditAPI.shared.request(from: .subreddit("programming", type: .hot))
+        }.done { (data) in
+            self.viewController.data = data.children
+            self.viewController.reloadTable()
+            self.viewController.hideSpinner()
+        }.catch { (error) in
+            print(error)
+        }
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

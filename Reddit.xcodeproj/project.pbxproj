@@ -36,6 +36,7 @@
 		66EB26AB22BE7A0100824102 /* CommentsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26AA22BE7A0100824102 /* CommentsResponse.swift */; };
 		66EB26AD22BE89AD00824102 /* CommentListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26AC22BE89AD00824102 /* CommentListing.swift */; };
 		66EB26AF22BEA3EC00824102 /* CommentMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26AE22BEA3EC00824102 /* CommentMore.swift */; };
+		66EB26B822BEB03A00824102 /* ListingTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26B722BEB03A00824102 /* ListingTableViewRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,7 @@
 		66EB26AA22BE7A0100824102 /* CommentsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsResponse.swift; sourceTree = "<group>"; };
 		66EB26AC22BE89AD00824102 /* CommentListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListing.swift; sourceTree = "<group>"; };
 		66EB26AE22BEA3EC00824102 /* CommentMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMore.swift; sourceTree = "<group>"; };
+		66EB26B722BEB03A00824102 /* ListingTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableViewRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -257,6 +259,7 @@
 		66EB269C22B9A95E00824102 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				66EB26B622BEB01D00824102 /* Generics */,
 				66EB269F22B9B9C100824102 /* Convenience */,
 				66EB269D22B9A98600824102 /* LinkTableViewRow.swift */,
 			);
@@ -269,6 +272,14 @@
 				66EB26A022B9B9CF00824102 /* NSLabel.swift */,
 			);
 			path = Convenience;
+			sourceTree = "<group>";
+		};
+		66EB26B622BEB01D00824102 /* Generics */ = {
+			isa = PBXGroup;
+			children = (
+				66EB26B722BEB03A00824102 /* ListingTableViewRow.swift */,
+			);
+			path = Generics;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,6 +455,7 @@
 				6617348922B69D6C005F557F /* AppDelegate.swift in Sources */,
 				66EB268E22B6D36300824102 /* Listing.swift in Sources */,
 				66EB26A322BB291800824102 /* OAuthRetryHandler.swift in Sources */,
+				66EB26B822BEB03A00824102 /* ListingTableViewRow.swift in Sources */,
 				661734DB22B6CF43005F557F /* Votable.swift in Sources */,
 				66EB26AB22BE7A0100824102 /* CommentsResponse.swift in Sources */,
 				66EB269922B87A7F00824102 /* ListingViewController.swift in Sources */,
