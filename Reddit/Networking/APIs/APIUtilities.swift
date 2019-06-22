@@ -12,11 +12,13 @@ import PromiseKit
 
 extension MoyaProvider {
     func request<R: Decodable>(from target: Target) -> Promise<R> {
+        print(target.path)
         return Promise<R> { (resolver) in
             self.request(target, completion: { (result) in
                 switch result {
                 case let .success(response):
                     do {
+                        print(try response.mapJSON())
                         let objectResponse = try response.map(R.self)
                         resolver.fulfill(objectResponse)
                     } catch {

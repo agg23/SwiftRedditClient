@@ -91,7 +91,7 @@ struct Link: Thing, Created, Votable, Decodable {
     let thumbnail: String
     let title: String
     let url: String
-    let edited: Int?
+    let edited: Date?
     let distinguished: String?
     let stickied: Bool
     
@@ -140,7 +140,7 @@ struct Link: Thing, Created, Votable, Decodable {
         title = try container.decode(String.self, forKey: .title)
         url = try container.decode(String.self, forKey: .url)
         if let editedInt = try? container.decodeIfPresent(Int.self, forKey: .edited) {
-            edited = editedInt
+            edited = Date(timeIntervalSince1970: TimeInterval(editedInt))
         } else {
             // Boolean was provided for "edited"
             edited = nil

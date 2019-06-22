@@ -27,7 +27,7 @@ class ListingViewController: NSViewController {
     let buttonStackView = NSStackView()
     
     var subreddit = "programming"
-    var data: Listing<Message>?
+    var data: CommentListing?
     
     override func loadView() {
         view = NSView()
@@ -108,10 +108,13 @@ class ListingViewController: NSViewController {
             RedditAPI.shared.authenticate(with: view.window)
         }.done { () in
             print("Auth complete")
-            self.getMessages()
+//            self.getMessages()
+            self.getComments()
         }.catch { (error) in
             print(error)
         }
+        
+        getComments()
         
 //        getMessages()
     }
@@ -135,7 +138,20 @@ class ListingViewController: NSViewController {
             self.showSpinner()
             return RedditAPI.shared.request(from: .messages)
             }.done { (data) in
-                self.data = data
+//                self.data = data
+                self.tableView.reloadData()
+                self.hideSpinner()
+            }.catch { (error) in
+                print(error)
+        }
+    }
+    
+    private func getComments() {
+        firstly { () -> Promise<CommentsResponse> in
+            self.showSpinner()
+            return RedditAPI.shared.request(from: .comments(in: "programming", on: "c3h9gw"))
+            }.done { (data) in
+                self.data = data.comments
                 self.tableView.reloadData()
                 self.hideSpinner()
             }.catch { (error) in
@@ -181,17 +197,17 @@ extension ListingViewController: NSTableViewDelegate, NSTableViewDataSource {
             rowView?.identifier = viewIdentifier
         }
         
-        guard let link = data?.children[row] else {
+        guard let link = data?.comments[row] else {
             return rowView
         }
         
-        rowView?.titleLabel.stringValue = link.subject
+        rowView?.titleLabel.stringValue = link.body
         
         return rowView
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return data?.children.count ?? 0
+        return data?.comments.count ?? 0
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {

@@ -10,6 +10,7 @@ import Moya
 
 enum RedditAPITarget {
     case subreddit(_: String, type: RedditAPISubredditType)
+    case comments(in: String, on: String)
     case messages
 }
 
@@ -56,6 +57,8 @@ extension RedditAPITarget: TargetType {
                 break
             }
             return "/r/\(subreddit)/\(typeString).json"
+        case .comments(let subreddit, let link):
+            return "/r/\(subreddit)/comments/\(link).json"
         case .messages:
             return "/message/inbox.json"
         }
@@ -64,6 +67,8 @@ extension RedditAPITarget: TargetType {
     var method: Method {
         switch self {
         case .subreddit(_):
+            return .get
+        case .comments(_):
             return .get
         case .messages:
             return .get
@@ -83,6 +88,8 @@ extension RedditAPITarget: TargetType {
             default:
                 return .requestPlain
             }
+        case .comments(_):
+            return .requestPlain
         case .messages:
             return .requestPlain
         }
@@ -94,6 +101,8 @@ extension RedditAPITarget: TargetType {
     
     var requiresOAuth: Bool {
         switch self {
+        case .comments(_):
+            return true
         case .messages:
             return true
         default:

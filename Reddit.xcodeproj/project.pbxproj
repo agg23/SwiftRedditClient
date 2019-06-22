@@ -32,6 +32,10 @@
 		66EB26A322BB291800824102 /* OAuthRetryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A222BB291800824102 /* OAuthRetryHandler.swift */; };
 		66EB26A522BB2AEC00824102 /* RedditAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A422BB2AEC00824102 /* RedditAPI.swift */; };
 		66EB26A722BC6C2F00824102 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A622BC6C2F00824102 /* Message.swift */; };
+		66EB26A922BE73BB00824102 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26A822BE73BB00824102 /* Comment.swift */; };
+		66EB26AB22BE7A0100824102 /* CommentsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26AA22BE7A0100824102 /* CommentsResponse.swift */; };
+		66EB26AD22BE89AD00824102 /* CommentListing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26AC22BE89AD00824102 /* CommentListing.swift */; };
+		66EB26AF22BEA3EC00824102 /* CommentMore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26AE22BEA3EC00824102 /* CommentMore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +88,10 @@
 		66EB26A222BB291800824102 /* OAuthRetryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuthRetryHandler.swift; sourceTree = "<group>"; };
 		66EB26A422BB2AEC00824102 /* RedditAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RedditAPI.swift; sourceTree = "<group>"; };
 		66EB26A622BC6C2F00824102 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		66EB26A822BE73BB00824102 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		66EB26AA22BE7A0100824102 /* CommentsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsResponse.swift; sourceTree = "<group>"; };
+		66EB26AC22BE89AD00824102 /* CommentListing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentListing.swift; sourceTree = "<group>"; };
+		66EB26AE22BEA3EC00824102 /* CommentMore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentMore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -219,6 +227,10 @@
 				66EB268D22B6D36300824102 /* Listing.swift */,
 				661734DC22B6CF83005F557F /* Link.swift */,
 				66EB26A622BC6C2F00824102 /* Message.swift */,
+				66EB26A822BE73BB00824102 /* Comment.swift */,
+				66EB26AA22BE7A0100824102 /* CommentsResponse.swift */,
+				66EB26AC22BE89AD00824102 /* CommentListing.swift */,
+				66EB26AE22BEA3EC00824102 /* CommentMore.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -433,12 +445,16 @@
 				66EB268E22B6D36300824102 /* Listing.swift in Sources */,
 				66EB26A322BB291800824102 /* OAuthRetryHandler.swift in Sources */,
 				661734DB22B6CF43005F557F /* Votable.swift in Sources */,
+				66EB26AB22BE7A0100824102 /* CommentsResponse.swift in Sources */,
 				66EB269922B87A7F00824102 /* ListingViewController.swift in Sources */,
 				661734BC22B6A5F5005F557F /* OAuthManager.swift in Sources */,
 				661734DD22B6CF83005F557F /* Link.swift in Sources */,
 				661734D922B6CF13005F557F /* Created.swift in Sources */,
 				661734D022B6B13B005F557F /* RedditAPITarget.swift in Sources */,
+				66EB26AF22BEA3EC00824102 /* CommentMore.swift in Sources */,
+				66EB26A922BE73BB00824102 /* Comment.swift in Sources */,
 				66EB269E22B9A98600824102 /* LinkTableViewRow.swift in Sources */,
+				66EB26AD22BE89AD00824102 /* CommentListing.swift in Sources */,
 				66EB26A722BC6C2F00824102 /* Message.swift in Sources */,
 				66EB26A122B9B9CF00824102 /* NSLabel.swift in Sources */,
 				66EB269622B8708800824102 /* APIUtilities.swift in Sources */,
