@@ -153,6 +153,10 @@ class LinkViewController: NSViewController {
         progressView.isHidden = true
     }
     
+    public func set(onSelect: ((Link) -> Void)?) {
+        tableView.onSelect = onSelect
+    }
+    
     // MARK: Input
     
     @objc private func subredditEntered() {

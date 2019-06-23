@@ -11,7 +11,7 @@ import PromiseKit
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
-    let viewController = LinkViewController()
+    let viewController = MainViewController()
     @IBOutlet weak var window: NSWindow!
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {

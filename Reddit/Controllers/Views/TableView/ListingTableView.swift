@@ -13,10 +13,11 @@ class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSV
     let viewIdentifier = NSUserInterfaceItemIdentifier("listingViewRow.\(TCellView.self)")
     
     public var data: [TData]?
+    public var onSelect: ((TData) -> Void)?
     
     let scrollView = NSScrollView()
     let tableView = NSTableView()
-        
+    
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
         
@@ -77,5 +78,13 @@ class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSV
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         return 40
+    }
+    
+    func tableViewSelectionDidChange(_ notification: Notification) {
+        let row = tableView.selectedRow
+        guard row != -1, let value = data?[row], let onSelect = onSelect else {
+            return
+        }
+        onSelect(value)
     }
 }
