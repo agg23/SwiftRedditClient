@@ -18,7 +18,6 @@ extension MoyaProvider {
                 switch result {
                 case let .success(response):
                     do {
-                        print(try response.mapJSON())
                         let objectResponse = try response.map(R.self)
                         resolver.fulfill(objectResponse)
                     } catch {
