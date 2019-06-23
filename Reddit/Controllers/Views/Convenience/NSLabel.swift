@@ -22,3 +22,13 @@ class NSLabel: NSTextField {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+extension NSLabel {
+    public func setWrappable() {
+        setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        setContentHuggingPriority(.defaultLow, for: .horizontal)
+        setContentHuggingPriority(.defaultLow, for: .vertical)
+        lineBreakMode = .byWordWrapping
+    }
+}

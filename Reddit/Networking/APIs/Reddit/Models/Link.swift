@@ -148,4 +148,8 @@ struct Link: Thing, Created, Votable, Decodable {
         distinguished = try container.decodeIfPresent(String.self, forKey: .distinguished)
         stickied = try container.decode(Bool.self, forKey: .stickied)
     }
+    
+    public func isSelfPost(in subreddit: String) -> Bool {
+        return domain.lowercased() == "self.\(subreddit.lowercased())"
+    }
 }
