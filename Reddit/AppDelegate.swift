@@ -16,7 +16,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        window.minSize = NSSize(width: 600, height: 400)
+        window.minSize = NSSize(width: 1000, height: 700)
         window.contentViewController = viewController
     }
 

@@ -28,6 +28,8 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
 
         addSubview(titleLabel)
         
+        titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
         titleLabel.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.leftMargin)
             make.right.equalTo(self.snp.rightMargin)

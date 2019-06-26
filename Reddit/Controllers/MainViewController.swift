@@ -49,6 +49,9 @@ class MainViewController: NSViewController {
         }
         
         let linkSplitItem = NSSplitViewItem(contentListWithViewController: linkViewController)
+        linkSplitItem.holdingPriority = .init(251)
+        webContentSplitItem.holdingPriority = .defaultLow
+        selfPostSplitItem.holdingPriority = .defaultLow
         
         splitViewController.addSplitViewItem(linkSplitItem)
         splitViewController.addSplitViewItem(webContentSplitItem)
@@ -56,6 +59,10 @@ class MainViewController: NSViewController {
         linkViewController.set(onSelect: selected(link:))
     }
     
+    override func viewWillAppear() {
+        splitViewController.splitView.setPosition(300, ofDividerAt: 0)
+    }
+        
     func selected(link: Link) {
         if link.isSelfPost(in: linkViewController.subreddit) {
             // Self Post

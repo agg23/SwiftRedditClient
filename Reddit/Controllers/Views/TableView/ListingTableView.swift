@@ -33,6 +33,8 @@ class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSV
             make.bottom.equalTo(self.snp.bottomMargin)
         }
         
+        tableView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        
         tableView.delegate = self
         tableView.dataSource = self
         
