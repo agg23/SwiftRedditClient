@@ -16,6 +16,7 @@ class NSLabel: NSTextField {
         self.drawsBackground = false
         self.isEditable = false
         self.isSelectable = false
+        self.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
@@ -26,7 +27,7 @@ class NSLabel: NSTextField {
 extension NSLabel {
     public func setWrappable() {
         setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
         setContentHuggingPriority(.defaultLow, for: .horizontal)
         setContentHuggingPriority(.defaultLow, for: .vertical)
         lineBreakMode = .byWordWrapping
