@@ -13,7 +13,7 @@ class NSLabel: NSTextField {
         super.init(frame: frameRect)
 
         self.isBezeled = false
-        self.drawsBackground = false
+        self.drawsBackground = true
         self.isEditable = false
         self.isSelectable = false
         self.backgroundColor = .clear

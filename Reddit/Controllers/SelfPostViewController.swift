@@ -28,6 +28,8 @@ class SelfPostViewController: NSViewController {
         
         titleLabel.setWrappable()
         postLabel.setWrappable()
+        titleLabel.textColor = .textColor
+        postLabel.textColor = .textColor
         
         scrollView.snp.makeConstraints { (make) in
             make.top.equalTo(self.view.snp.topMargin)
