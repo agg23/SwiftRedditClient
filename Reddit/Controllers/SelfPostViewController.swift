@@ -28,6 +28,8 @@ class SelfPostViewController: NSViewController {
         
         titleLabel.setWrappable()
         postLabel.setWrappable()
+
+        titleLabel.font = .boldSystemFont(ofSize: 15)
         titleLabel.textColor = .textColor
         postLabel.textColor = .textColor
         
@@ -52,7 +54,7 @@ class SelfPostViewController: NSViewController {
         }
         
         postLabel.snp.makeConstraints { (make) in
-            make.top.equalTo(titleLabel.snp.bottom)
+            make.top.equalTo(titleLabel.snp.bottom).offset(10)
             make.bottom.lessThanOrEqualTo(contentView.snp.bottomMargin)
             make.left.equalTo(contentView.snp.leftMargin)
             make.right.equalTo(contentView.snp.rightMargin)
