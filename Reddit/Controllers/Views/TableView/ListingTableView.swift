@@ -76,6 +76,12 @@ class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSV
         tableView.reloadData()
     }
     
+    public func insert(rows: IndexSet) {
+        tableView.beginUpdates()
+        tableView.insertRows(at: rows, withAnimation: .effectFade)
+        tableView.endUpdates()
+    }
+    
     public func resetNearBottomFired() {
         nearBottomFired = false
     }

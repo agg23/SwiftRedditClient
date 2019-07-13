@@ -91,7 +91,7 @@ class LinkViewController: NSViewController {
     
     override func viewDidAppear() {
 //        authorizeReddit()
-        fetchSubreddit(from: subreddit, with: .hot, size: nil, after: nil)
+        fetchSubreddit(from: subreddit, with: .hot, size: nil, after: nil, existingCount: nil)
 //        firstly { () -> Promise<Void> in
 //            RedditAPI.shared.authenticate(with: view.window)
 //        }.done { () in
@@ -108,27 +108,32 @@ class LinkViewController: NSViewController {
     }
     
     private func onNearScrollBottom() {
-        guard let afterId = self.tableView.data?.last?.id else {
+        guard let data = self.tableView.data,
+            let afterName = data.last?.name else {
             return
         }
         
         if !self.loadingLinks {
-            fetchSubreddit(from: subreddit, with: .hot, size: nil, after: afterId)
+            fetchSubreddit(from: subreddit, with: .hot, size: nil, after: afterName, existingCount: data.count)
         }
     }
     
-    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType, size: Int?, after: String?) {
+    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType, size: Int?, after: String?, existingCount: Int?) {
         firstly { () -> Promise<Listing<Link>> in
             self.loadingLinks = true
             self.showSpinner()
             self.subreddit = subreddit
-            return RedditAPI.shared.request(from: .subreddit(subreddit, type: type, size: size, after: after, previousResults: nil))
+            return RedditAPI.shared.request(from: .subreddit(subreddit, type: type, size: size, after: after, previousResults: existingCount))
         }.done { (data) in
             self.loadingLinks = false
             var rows = self.tableView.data ?? []
+            let existingRowCount = rows.count
+
             rows.append(contentsOf: data.children)
+
             self.tableView.data = rows
-            self.tableView.reloadData()
+            self.tableView.insert(rows: IndexSet(integersIn: existingRowCount ..< existingRowCount + data.children.count))
+
             self.hideSpinner()
         }.catch { (error) in
             print(error)
@@ -178,18 +183,18 @@ class LinkViewController: NSViewController {
     // MARK: Input
     
     @objc private func subredditEntered() {
-        fetchSubreddit(from: subredditTextField.stringValue, with: .hot, size: nil, after: nil)
+        fetchSubreddit(from: subredditTextField.stringValue, with: .hot, size: nil, after: nil, existingCount: nil)
     }
     
     @objc private func hotClicked() {
-        fetchSubreddit(from: subreddit, with: .hot, size: nil, after: nil)
+        fetchSubreddit(from: subreddit, with: .hot, size: nil, after: nil, existingCount: nil)
     }
     
     @objc private func newClicked() {
-        fetchSubreddit(from: subreddit, with: .new, size: nil, after: nil)
+        fetchSubreddit(from: subreddit, with: .new, size: nil, after: nil, existingCount: nil)
     }
     
     @objc private func topClicked() {
-        fetchSubreddit(from: subreddit, with: .top(.all), size: nil, after: nil)
+        fetchSubreddit(from: subreddit, with: .top(.all), size: nil, after: nil, existingCount: nil)
     }
 }
