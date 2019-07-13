@@ -118,7 +118,7 @@ class LinkViewController: NSViewController {
         }
     }
     
-    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType, size: Int?, after: String?, existingCount: Int?) {
+    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType, size: Int?, after: String?, existingCount: Int?, replaceData: Bool = false) {
         firstly { () -> Promise<Listing<Link>> in
             self.loadingLinks = true
             self.showSpinner()
@@ -127,12 +127,22 @@ class LinkViewController: NSViewController {
         }.done { (data) in
             self.loadingLinks = false
             var rows = self.tableView.data ?? []
+            
+            if replaceData {
+                rows = []
+            }
+            
             let existingRowCount = rows.count
 
             rows.append(contentsOf: data.children)
 
             self.tableView.data = rows
-            self.tableView.insert(rows: IndexSet(integersIn: existingRowCount ..< existingRowCount + data.children.count))
+            if replaceData {
+                self.tableView.reloadData()
+                self.tableView.scrollToTop()
+            } else {
+                self.tableView.insert(rows: IndexSet(integersIn: existingRowCount ..< existingRowCount + data.children.count))
+            }
 
             self.hideSpinner()
         }.catch { (error) in
@@ -183,18 +193,18 @@ class LinkViewController: NSViewController {
     // MARK: Input
     
     @objc private func subredditEntered() {
-        fetchSubreddit(from: subredditTextField.stringValue, with: .hot, size: nil, after: nil, existingCount: nil)
+        fetchSubreddit(from: subredditTextField.stringValue, with: .hot, size: nil, after: nil, existingCount: nil, replaceData: true)
     }
     
     @objc private func hotClicked() {
-        fetchSubreddit(from: subreddit, with: .hot, size: nil, after: nil, existingCount: nil)
+        fetchSubreddit(from: subreddit, with: .hot, size: nil, after: nil, existingCount: nil, replaceData: true)
     }
     
     @objc private func newClicked() {
-        fetchSubreddit(from: subreddit, with: .new, size: nil, after: nil, existingCount: nil)
+        fetchSubreddit(from: subreddit, with: .new, size: nil, after: nil, existingCount: nil, replaceData: true)
     }
     
     @objc private func topClicked() {
-        fetchSubreddit(from: subreddit, with: .top(.all), size: nil, after: nil, existingCount: nil)
+        fetchSubreddit(from: subreddit, with: .top(.all), size: nil, after: nil, existingCount: nil, replaceData: true)
     }
 }

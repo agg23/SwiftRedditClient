@@ -76,6 +76,10 @@ class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSV
         tableView.reloadData()
     }
     
+    public func scrollToTop() {
+        tableView.scrollRowToVisible(0)
+    }
+    
     public func insert(rows: IndexSet) {
         tableView.beginUpdates()
         tableView.insertRows(at: rows, withAnimation: .effectFade)
