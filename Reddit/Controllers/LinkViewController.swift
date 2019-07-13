@@ -23,6 +23,7 @@ class LinkViewController: NSViewController {
     let topButton = NSButton()
     let buttonStackView = NSStackView()
     
+    var loadingLinks = false
     var subreddit = "programming"
     
     override func loadView() {
@@ -38,6 +39,9 @@ class LinkViewController: NSViewController {
             make.right.equalTo(self.view.snp.rightMargin)
             make.bottom.equalTo(self.view.snp.bottomMargin)
         }
+        
+        tableView.scrollLoadIndex = 20
+        tableView.onNearScrollBottom = self.onNearScrollBottom
         
         progressView.isIndeterminate = true
         progressView.style = .spinning
@@ -87,7 +91,7 @@ class LinkViewController: NSViewController {
     
     override func viewDidAppear() {
 //        authorizeReddit()
-        fetchSubreddit(from: subreddit, with: .hot)
+        fetchSubreddit(from: subreddit, with: .hot, size: nil, after: nil)
 //        firstly { () -> Promise<Void> in
 //            RedditAPI.shared.authenticate(with: view.window)
 //        }.done { () in
@@ -103,13 +107,27 @@ class LinkViewController: NSViewController {
 //        getMessages()
     }
     
-    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType) {
+    private func onNearScrollBottom() {
+        guard let afterId = self.tableView.data?.last?.id else {
+            return
+        }
+        
+        if !self.loadingLinks {
+            fetchSubreddit(from: subreddit, with: .hot, size: nil, after: afterId)
+        }
+    }
+    
+    private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType, size: Int?, after: String?) {
         firstly { () -> Promise<Listing<Link>> in
+            self.loadingLinks = true
             self.showSpinner()
             self.subreddit = subreddit
-            return RedditAPI.shared.request(from: .subreddit(subreddit, type: type))
+            return RedditAPI.shared.request(from: .subreddit(subreddit, type: type, size: size, after: after, previousResults: nil))
         }.done { (data) in
-            self.tableView.data = data.children
+            self.loadingLinks = false
+            var rows = self.tableView.data ?? []
+            rows.append(contentsOf: data.children)
+            self.tableView.data = rows
             self.tableView.reloadData()
             self.hideSpinner()
         }.catch { (error) in
@@ -160,18 +178,18 @@ class LinkViewController: NSViewController {
     // MARK: Input
     
     @objc private func subredditEntered() {
-        fetchSubreddit(from: subredditTextField.stringValue, with: .hot)
+        fetchSubreddit(from: subredditTextField.stringValue, with: .hot, size: nil, after: nil)
     }
     
     @objc private func hotClicked() {
-        fetchSubreddit(from: subreddit, with: .hot)
+        fetchSubreddit(from: subreddit, with: .hot, size: nil, after: nil)
     }
     
     @objc private func newClicked() {
-        fetchSubreddit(from: subreddit, with: .new)
+        fetchSubreddit(from: subreddit, with: .new, size: nil, after: nil)
     }
     
     @objc private func topClicked() {
-        fetchSubreddit(from: subreddit, with: .top(.all))
+        fetchSubreddit(from: subreddit, with: .top(.all), size: nil, after: nil)
     }
 }

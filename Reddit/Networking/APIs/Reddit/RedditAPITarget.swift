@@ -9,7 +9,7 @@
 import Moya
 
 enum RedditAPITarget {
-    case subreddit(_: String, type: RedditAPISubredditType)
+    case subreddit(_: String, type: RedditAPISubredditType, size: Int?, after: String?, previousResults: Int?)
     case comments(in: String, on: String)
     case messages
 }
@@ -33,6 +33,10 @@ enum RedditAPISubredditTimeInterval: String {
 }
 
 extension RedditAPITarget: TargetType {
+    func buildParamters(from parameters: [String: String?]) -> [String: String] {
+        return parameters.compactMapValues { $0 }
+    }
+    
     var baseURL: URL {
         guard requiresOAuth else {
             return URL(string: "https://www.reddit.com")!
@@ -43,7 +47,7 @@ extension RedditAPITarget: TargetType {
     
     var path: String {
         switch self {
-        case .subreddit(let subreddit, let type):
+        case .subreddit(let subreddit, let type, _, _, _):
             var typeString = "\(type)"
             
             switch type {
@@ -81,13 +85,29 @@ extension RedditAPITarget: TargetType {
     
     var task: Task {
         switch self {
-        case .subreddit(_, let type):
+        case .subreddit(_, let type, let size, let after, let previousResults):
+            let limit = size ?? 50
+            
+            var fetchInterval: RedditAPISubredditTimeInterval?
+            
             switch type {
             case .top(let interval), .controversial(let interval):
-                return .requestParameters(parameters: ["t": interval.rawValue], encoding: URLEncoding.default)
+                fetchInterval = interval
             default:
+                break
+            }
+            
+            let parameters = buildParamters(from:
+                                ["limit": String(describing: limit),
+                                 "count": String(describing: previousResults),
+                                 "after": after,
+                                 "t": fetchInterval?.rawValue])
+            
+            if parameters.count < 1 {
                 return .requestPlain
             }
+            
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .comments(_):
             return .requestPlain
         case .messages:

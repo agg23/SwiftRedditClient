@@ -11,9 +11,23 @@ import SnapKit
 
 class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSView, NSTableViewDelegate, NSTableViewDataSource {
     let viewIdentifier = NSUserInterfaceItemIdentifier("listingViewRow.\(TCellView.self)")
+    lazy var notificationCenter: NotificationCenter = NotificationCenter.default
     
-    public var data: [TData]?
+    var _data: [TData]?
+    public var data: [TData]? {
+        get {
+            return _data
+        }
+        set {
+            _data = newValue
+            nearBottomFired = false
+        }
+    }
     public var onSelect: ((TData) -> Void)?
+    public var onNearScrollBottom: (() -> Void)?
+    var nearBottomFired = false
+    
+    public var scrollLoadIndex: Int?
     
     let scrollView = NSScrollView()
     let tableView = NSTableView()
@@ -43,16 +57,27 @@ class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSV
         
         tableView.layer = CALayer()
         tableView.layer?.backgroundColor = .white
+        
+        let clipView = scrollView.contentView
+        notificationCenter.addObserver(self, selector: #selector(scrollViewContentBoundsDidChange), name: NSView.boundsDidChangeNotification, object: clipView)
     }
     
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    deinit {
+        notificationCenter.removeObserver(self)
+    }
+    
     // MARK: NSTableView
     
     public func reloadData() {
         tableView.reloadData()
+    }
+    
+    public func resetNearBottomFired() {
+        nearBottomFired = false
     }
     
     // MARK: NSTableViewDelegate, NSTableViewDataSource
@@ -88,5 +113,25 @@ class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSV
             return
         }
         onSelect(value)
+    }
+    
+    // MARK: ScrollView
+    
+    @objc func scrollViewContentBoundsDidChange(_ notification: Notification) {
+        guard !nearBottomFired,
+            let scrolledView = notification.object as? NSClipView,
+            let onNearScrollBottom = onNearScrollBottom else {
+            return
+        }
+        
+        let bounds = scrolledView.bounds
+        let contentHeight = scrollView.documentView?.frame.size.height ?? 0
+        
+        if bounds.origin.y > contentHeight - 2 * bounds.size.height {
+            // Within 2 table heights of bottom
+            print("Bottom")
+            nearBottomFired = true
+            onNearScrollBottom()
+        }
     }
 }
