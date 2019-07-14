@@ -9,9 +9,9 @@
 import AppKit
 import SnapKit
 
-class CommentTableViewRow: ListingTableViewRow<(Comment, Int)> {
+class CommentTableViewRow: ListingTableViewRow<DisplayedComment> {
     // MARK: ListingTableViewRow
-    override var data: (Comment, Int)? {
+    override var data: DisplayedComment? {
         get {
             return _data
         }
@@ -22,9 +22,9 @@ class CommentTableViewRow: ListingTableViewRow<(Comment, Int)> {
                 return
             }
             
-            titleLabel.stringValue = data.0.body
+            titleLabel.stringValue = data.comment?.body ?? (data.more != nil ? "Show more" : "")
             indentSpacer.snp.updateConstraints { make in
-                make.width.equalTo(levelWidth(for: data.1))
+                make.width.equalTo(levelWidth(for: data.level))
             }
         }
     }
