@@ -9,7 +9,7 @@
 import AppKit
 import SnapKit
 
-class ListingTableView<TData: Thing, TCellView: ListingTableViewRow<TData>>: NSView, NSTableViewDelegate, NSTableViewDataSource {
+class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NSTableViewDelegate, NSTableViewDataSource {
     let viewIdentifier = NSUserInterfaceItemIdentifier("listingViewRow.\(TCellView.self)")
     lazy var notificationCenter: NotificationCenter = NotificationCenter.default
     

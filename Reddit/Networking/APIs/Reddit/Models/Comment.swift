@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Comment: Votable, Created, Decodable {
+struct Comment: Thing, Votable, Created, Decodable {
     enum CommentKeys: String, CodingKey {
         case id
         case name

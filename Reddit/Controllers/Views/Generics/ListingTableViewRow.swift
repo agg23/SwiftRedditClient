@@ -8,7 +8,7 @@
 
 import AppKit
 
-class ListingTableViewRow<T: Thing>: NSView {
+class ListingTableViewRow<T>: NSView {
     internal var _data: T? = nil
     var data: T? {
         get {

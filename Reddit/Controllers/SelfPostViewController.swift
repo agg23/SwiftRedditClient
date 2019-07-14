@@ -17,6 +17,8 @@ class SelfPostViewController: NSViewController {
     let titleLabel = NSLabel()
     let postLabel = NSLabel()
     
+    let commentsViewController = CommentViewController()
+    
     override func loadView() {
         view = NSView()
         
@@ -25,6 +27,7 @@ class SelfPostViewController: NSViewController {
         
         contentView.addSubview(titleLabel)
         contentView.addSubview(postLabel)
+        contentView.addSubview(commentsViewController.view)
         
         titleLabel.setWrappable()
         postLabel.setWrappable()
@@ -55,7 +58,14 @@ class SelfPostViewController: NSViewController {
         
         postLabel.snp.makeConstraints { (make) in
             make.top.equalTo(titleLabel.snp.bottom).offset(10)
-            make.bottom.lessThanOrEqualTo(contentView.snp.bottomMargin)
+//            make.bottom.lessThanOrEqualTo(contentView.snp.bottomMargin)
+            make.left.equalTo(contentView.snp.leftMargin)
+            make.right.equalTo(contentView.snp.rightMargin)
+        }
+        
+        commentsViewController.view.snp.makeConstraints { (make) in
+            make.top.equalTo(postLabel.snp.bottom).offset(10)
+            make.bottom.equalTo(contentView.snp.bottomMargin)
             make.left.equalTo(contentView.snp.leftMargin)
             make.right.equalTo(contentView.snp.rightMargin)
         }
@@ -68,5 +78,7 @@ class SelfPostViewController: NSViewController {
         
         titleLabel.stringValue = data.title
         postLabel.stringValue = data.selfText
+        
+        commentsViewController.set(data: data)
     }
 }
