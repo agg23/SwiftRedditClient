@@ -186,7 +186,7 @@ class LinkViewController: NSViewController {
         progressView.isHidden = true
     }
     
-    public func set(onSelect: ((Link) -> Void)?) {
+    public func set(onSelect: ((Link, Int) -> Void)?) {
         tableView.onSelect = onSelect
     }
     

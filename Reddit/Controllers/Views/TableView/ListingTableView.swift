@@ -23,7 +23,7 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
             nearBottomFired = false
         }
     }
-    public var onSelect: ((TData) -> Void)?
+    public var onSelect: ((TData, _ index: Int) -> Void)?
     public var onNearScrollBottom: (() -> Void)?
     var nearBottomFired = false
     
@@ -80,9 +80,12 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         tableView.scrollRowToVisible(0)
     }
     
-    public func insert(rows: IndexSet) {
+    public func insert(rows: IndexSet, removing removedRows: IndexSet? = nil, with animation: NSTableView.AnimationOptions = .effectFade) {
         tableView.beginUpdates()
-        tableView.insertRows(at: rows, withAnimation: .effectFade)
+        if let removedRows = removedRows {
+            tableView.removeRows(at: removedRows, withAnimation: animation)
+        }
+        tableView.insertRows(at: rows, withAnimation: animation)
         tableView.endUpdates()
     }
     
@@ -122,7 +125,9 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         guard row != -1, let value = data?[row], let onSelect = onSelect else {
             return
         }
-        onSelect(value)
+        
+        print("Selected \(row)")
+        onSelect(value, row)
     }
     
     // MARK: ScrollView

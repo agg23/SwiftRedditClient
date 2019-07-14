@@ -11,6 +11,7 @@ import Moya
 enum RedditAPITarget {
     case subreddit(_: String, type: RedditAPISubredditType, size: Int?, after: String?, previousResults: Int?)
     case comments(in: String, on: String)
+    case moreComments(link: String, childrenIds: [String])
     case messages
 }
 
@@ -63,6 +64,8 @@ extension RedditAPITarget: TargetType {
             return "/r/\(subreddit)/\(typeString).json"
         case .comments(let subreddit, let link):
             return "/r/\(subreddit)/comments/\(link).json"
+        case .moreComments(_):
+            return "/api/morechildren.json"
         case .messages:
             return "/message/inbox.json"
         }
@@ -73,6 +76,8 @@ extension RedditAPITarget: TargetType {
         case .subreddit(_):
             return .get
         case .comments(_):
+            return .get
+        case .moreComments(_):
             return .get
         case .messages:
             return .get
@@ -110,6 +115,14 @@ extension RedditAPITarget: TargetType {
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .comments(_):
             return .requestPlain
+        case .moreComments(let link, let childrenIds):
+            let parameters = [
+                "api_type": "json",
+                "link_id": link,
+                "children": childrenIds.joined(separator: ",")
+            ]
+            
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .messages:
             return .requestPlain
         }

@@ -11,6 +11,7 @@
 		6608D5D522DAE45C008C1C6D /* CommentTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6608D5D422DAE45C008C1C6D /* CommentTableViewRow.swift */; };
 		6608D5D722DB7708008C1C6D /* CommentsTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6608D5D622DB7708008C1C6D /* CommentsTableView.swift */; };
 		6608D5DE22DB9105008C1C6D /* DisplayedComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6608D5DD22DB9105008C1C6D /* DisplayedComment.swift */; };
+		6608D5E022DB990B008C1C6D /* MoreCommentsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6608D5DF22DB990B008C1C6D /* MoreCommentsResponse.swift */; };
 		6617348922B69D6C005F557F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6617348822B69D6C005F557F /* AppDelegate.swift */; };
 		6617348B22B69D6D005F557F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6617348A22B69D6D005F557F /* Assets.xcassets */; };
 		6617348E22B69D6D005F557F /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6617348C22B69D6D005F557F /* MainMenu.xib */; };
@@ -71,6 +72,7 @@
 		6608D5D422DAE45C008C1C6D /* CommentTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentTableViewRow.swift; sourceTree = "<group>"; };
 		6608D5D622DB7708008C1C6D /* CommentsTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsTableView.swift; sourceTree = "<group>"; };
 		6608D5DD22DB9105008C1C6D /* DisplayedComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DisplayedComment.swift; sourceTree = "<group>"; };
+		6608D5DF22DB990B008C1C6D /* MoreCommentsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreCommentsResponse.swift; sourceTree = "<group>"; };
 		6617348522B69D6C005F557F /* Reddit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Reddit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6617348822B69D6C005F557F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6617348A22B69D6D005F557F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 				66EB26AA22BE7A0100824102 /* CommentsResponse.swift */,
 				66EB26AC22BE89AD00824102 /* CommentListing.swift */,
 				66EB26AE22BEA3EC00824102 /* CommentMore.swift */,
+				6608D5DF22DB990B008C1C6D /* MoreCommentsResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -523,6 +526,7 @@
 				66EB26A722BC6C2F00824102 /* Message.swift in Sources */,
 				663DA94C22BFE6A6002D0D25 /* SelfPostViewController.swift in Sources */,
 				66EB26A122B9B9CF00824102 /* NSLabel.swift in Sources */,
+				6608D5E022DB990B008C1C6D /* MoreCommentsResponse.swift in Sources */,
 				6608D5D522DAE45C008C1C6D /* CommentTableViewRow.swift in Sources */,
 				66EB269622B8708800824102 /* APIUtilities.swift in Sources */,
 				6608D5D722DB7708008C1C6D /* CommentsTableView.swift in Sources */,

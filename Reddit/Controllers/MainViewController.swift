@@ -56,14 +56,14 @@ class MainViewController: NSViewController {
         splitViewController.addSplitViewItem(linkSplitItem)
         splitViewController.addSplitViewItem(webContentSplitItem)
         
-        linkViewController.set(onSelect: selected(link:))
+        linkViewController.set(onSelect: selected(link:index:))
     }
     
     override func viewWillAppear() {
         splitViewController.splitView.setPosition(300, ofDividerAt: 0)
     }
         
-    func selected(link: Link) {
+    func selected(link: Link, index: Int) {
         if link.isSelfPost(in: linkViewController.subreddit) {
             // Self Post
             activateSelfPost()
