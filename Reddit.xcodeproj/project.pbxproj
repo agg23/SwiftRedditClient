@@ -27,6 +27,11 @@
 		661734DB22B6CF43005F557F /* Votable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661734DA22B6CF43005F557F /* Votable.swift */; };
 		661734DD22B6CF83005F557F /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661734DC22B6CF83005F557F /* Link.swift */; };
 		663DA94C22BFE6A6002D0D25 /* SelfPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 663DA94B22BFE6A6002D0D25 /* SelfPostViewController.swift */; };
+		665EACEB22FBAB7400D00584 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665EACEA22FBAB7400D00584 /* MainViewController.swift */; };
+		665EACEE22FBB06200D00584 /* SidebarTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665EACED22FBB06200D00584 /* SidebarTableView.swift */; };
+		665EACF022FBB16D00D00584 /* SidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665EACEF22FBB16D00D00584 /* SidebarItem.swift */; };
+		665EACF322FBB23200D00584 /* SidebarTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665EACF222FBB23200D00584 /* SidebarTableViewRow.swift */; };
+		665EACF522FBB2F600D00584 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665EACF422FBB2F600D00584 /* SidebarView.swift */; };
 		66EB268E22B6D36300824102 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB268D22B6D36300824102 /* Listing.swift */; };
 		66EB269022B6D3DB00824102 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB268F22B6D3DB00824102 /* Thing.swift */; };
 		66EB269222B7110900824102 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66EB269122B7110900824102 /* PromiseKit.framework */; };
@@ -45,7 +50,7 @@
 		66EB26B822BEB03A00824102 /* ListingTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26B722BEB03A00824102 /* ListingTableViewRow.swift */; };
 		66EB26BB22BFBD2100824102 /* ListingTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26BA22BFBD2100824102 /* ListingTableView.swift */; };
 		66EB26BD22BFC35000824102 /* NSViewController+Children.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26BC22BFC35000824102 /* NSViewController+Children.swift */; };
-		66EB26BF22BFCA6300824102 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26BE22BFCA6300824102 /* MainViewController.swift */; };
+		66EB26BF22BFCA6300824102 /* SplitContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26BE22BFCA6300824102 /* SplitContentViewController.swift */; };
 		66EB26C122BFCAD500824102 /* WebContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB26C022BFCAD500824102 /* WebContentViewController.swift */; };
 		66EB26C322BFCEC000824102 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66EB26C222BFCEC000824102 /* WebKit.framework */; };
 /* End PBXBuildFile section */
@@ -95,6 +100,11 @@
 		661734DA22B6CF43005F557F /* Votable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Votable.swift; sourceTree = "<group>"; };
 		661734DC22B6CF83005F557F /* Link.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Link.swift; sourceTree = "<group>"; };
 		663DA94B22BFE6A6002D0D25 /* SelfPostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfPostViewController.swift; sourceTree = "<group>"; };
+		665EACEA22FBAB7400D00584 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		665EACED22FBB06200D00584 /* SidebarTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTableView.swift; sourceTree = "<group>"; };
+		665EACEF22FBB16D00D00584 /* SidebarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarItem.swift; sourceTree = "<group>"; };
+		665EACF222FBB23200D00584 /* SidebarTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarTableViewRow.swift; sourceTree = "<group>"; };
+		665EACF422FBB2F600D00584 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		66EB268D22B6D36300824102 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Listing.swift; path = Reddit/Networking/APIs/Reddit/Models/Listing.swift; sourceTree = SOURCE_ROOT; };
 		66EB268F22B6D3DB00824102 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 		66EB269122B7110900824102 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/Mac/PromiseKit.framework; sourceTree = "<group>"; };
@@ -113,7 +123,7 @@
 		66EB26B722BEB03A00824102 /* ListingTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableViewRow.swift; sourceTree = "<group>"; };
 		66EB26BA22BFBD2100824102 /* ListingTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTableView.swift; sourceTree = "<group>"; };
 		66EB26BC22BFC35000824102 /* NSViewController+Children.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSViewController+Children.swift"; sourceTree = "<group>"; };
-		66EB26BE22BFCA6300824102 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		66EB26BE22BFCA6300824102 /* SplitContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitContentViewController.swift; sourceTree = "<group>"; };
 		66EB26C022BFCAD500824102 /* WebContentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentViewController.swift; sourceTree = "<group>"; };
 		66EB26C222BFCEC000824102 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -154,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				6608D5DD22DB9105008C1C6D /* DisplayedComment.swift */,
+				665EACEF22FBB16D00D00584 /* SidebarItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -280,15 +291,27 @@
 			path = Protocol;
 			sourceTree = "<group>";
 		};
+		665EACF122FBB21600D00584 /* Rows */ = {
+			isa = PBXGroup;
+			children = (
+				66EB26B722BEB03A00824102 /* ListingTableViewRow.swift */,
+				66EB269D22B9A98600824102 /* LinkTableViewRow.swift */,
+				6608D5D422DAE45C008C1C6D /* CommentTableViewRow.swift */,
+				665EACF222FBB23200D00584 /* SidebarTableViewRow.swift */,
+			);
+			path = Rows;
+			sourceTree = "<group>";
+		};
 		66EB269722B87A5F00824102 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				66EB269C22B9A95E00824102 /* Views */,
-				66EB26BE22BFCA6300824102 /* MainViewController.swift */,
+				66EB26BE22BFCA6300824102 /* SplitContentViewController.swift */,
 				66EB269822B87A7F00824102 /* LinkViewController.swift */,
 				66EB26C022BFCAD500824102 /* WebContentViewController.swift */,
 				663DA94B22BFE6A6002D0D25 /* SelfPostViewController.swift */,
 				6608D5D222DAE278008C1C6D /* CommentViewController.swift */,
+				665EACEA22FBAB7400D00584 /* MainViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -297,8 +320,8 @@
 			isa = PBXGroup;
 			children = (
 				66EB26B922BFBD0300824102 /* TableView */,
-				66EB26B622BEB01D00824102 /* Generics */,
 				66EB269F22B9B9C100824102 /* Convenience */,
+				665EACF422FBB2F600D00584 /* SidebarView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -312,22 +335,14 @@
 			path = Convenience;
 			sourceTree = "<group>";
 		};
-		66EB26B622BEB01D00824102 /* Generics */ = {
-			isa = PBXGroup;
-			children = (
-				66EB26B722BEB03A00824102 /* ListingTableViewRow.swift */,
-			);
-			path = Generics;
-			sourceTree = "<group>";
-		};
 		66EB26B922BFBD0300824102 /* TableView */ = {
 			isa = PBXGroup;
 			children = (
+				665EACF122FBB21600D00584 /* Rows */,
 				6608D5DC22DB90EC008C1C6D /* Models */,
-				66EB269D22B9A98600824102 /* LinkTableViewRow.swift */,
 				66EB26BA22BFBD2100824102 /* ListingTableView.swift */,
-				6608D5D422DAE45C008C1C6D /* CommentTableViewRow.swift */,
 				6608D5D622DB7708008C1C6D /* CommentsTableView.swift */,
+				665EACED22FBB06200D00584 /* SidebarTableView.swift */,
 			);
 			path = TableView;
 			sourceTree = "<group>";
@@ -502,7 +517,8 @@
 			files = (
 				6608D5D322DAE278008C1C6D /* CommentViewController.swift in Sources */,
 				66EB26A522BB2AEC00824102 /* RedditAPI.swift in Sources */,
-				66EB26BF22BFCA6300824102 /* MainViewController.swift in Sources */,
+				665EACF522FBB2F600D00584 /* SidebarView.swift in Sources */,
+				66EB26BF22BFCA6300824102 /* SplitContentViewController.swift in Sources */,
 				66EB269022B6D3DB00824102 /* Thing.swift in Sources */,
 				6617348922B69D6C005F557F /* AppDelegate.swift in Sources */,
 				66EB26BB22BFBD2100824102 /* ListingTableView.swift in Sources */,
@@ -514,9 +530,12 @@
 				66EB26AB22BE7A0100824102 /* CommentsResponse.swift in Sources */,
 				66EB269922B87A7F00824102 /* LinkViewController.swift in Sources */,
 				661734BC22B6A5F5005F557F /* OAuthManager.swift in Sources */,
+				665EACEE22FBB06200D00584 /* SidebarTableView.swift in Sources */,
 				6608D5DE22DB9105008C1C6D /* DisplayedComment.swift in Sources */,
 				661734DD22B6CF83005F557F /* Link.swift in Sources */,
+				665EACF322FBB23200D00584 /* SidebarTableViewRow.swift in Sources */,
 				661734D922B6CF13005F557F /* Created.swift in Sources */,
+				665EACEB22FBAB7400D00584 /* MainViewController.swift in Sources */,
 				661734D022B6B13B005F557F /* RedditAPITarget.swift in Sources */,
 				66EB26AF22BEA3EC00824102 /* CommentMore.swift in Sources */,
 				66EB26C122BFCAD500824102 /* WebContentViewController.swift in Sources */,
@@ -525,6 +544,7 @@
 				66EB26AD22BE89AD00824102 /* CommentListing.swift in Sources */,
 				66EB26A722BC6C2F00824102 /* Message.swift in Sources */,
 				663DA94C22BFE6A6002D0D25 /* SelfPostViewController.swift in Sources */,
+				665EACF022FBB16D00D00584 /* SidebarItem.swift in Sources */,
 				66EB26A122B9B9CF00824102 /* NSLabel.swift in Sources */,
 				6608D5E022DB990B008C1C6D /* MoreCommentsResponse.swift in Sources */,
 				6608D5D522DAE45C008C1C6D /* CommentTableViewRow.swift in Sources */,
@@ -696,8 +716,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Reddit/Reddit.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 58JLRGUCJQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -710,6 +732,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.appcannon.Reddit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -719,8 +742,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Reddit/Reddit.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = 58JLRGUCJQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -733,6 +758,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = com.appcannon.Reddit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;

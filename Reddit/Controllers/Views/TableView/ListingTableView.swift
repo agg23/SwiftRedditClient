@@ -23,6 +23,18 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
             nearBottomFired = false
         }
     }
+    
+    var _backgroundColor: NSColor = .white
+    public var backgroundColor: NSColor {
+        get {
+            return _backgroundColor
+        }
+        set {
+            _backgroundColor = newValue
+            tableView.backgroundColor = _backgroundColor
+        }
+    }
+    
     public var onSelect: ((TData, _ index: Int) -> Void)?
     public var onNearScrollBottom: (() -> Void)?
     var nearBottomFired = false
@@ -39,6 +51,9 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         
         scrollView.hasVerticalScroller = true
         scrollView.documentView = tableView
+
+        scrollView.backgroundColor = .clear
+        scrollView.drawsBackground = false
         
         scrollView.snp.makeConstraints { (make) in
             make.top.equalTo(self.snp.topMargin)
@@ -55,8 +70,12 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         tableView.addTableColumn(NSTableColumn())
         tableView.headerView = nil
         
-        tableView.layer = CALayer()
-        tableView.layer?.backgroundColor = .white
+        tableView.backgroundColor = _backgroundColor
+        
+//        tableView.layer = CALayer()
+//        tableView.layer?.backgroundColor = _backgroundColor
+        
+//        tableView.backgroundColor = .systemGray
         
         let clipView = scrollView.contentView
         notificationCenter.addObserver(self, selector: #selector(scrollViewContentBoundsDidChange), name: NSView.boundsDidChangeNotification, object: clipView)

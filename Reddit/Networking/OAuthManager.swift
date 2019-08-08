@@ -11,9 +11,7 @@ import Moya
 
 struct OAuthManager {
     static let shared = OAuthManager()
-    
-//    var sessionM
-    
+        
     var redditOAuth = OAuth2CodeGrant(settings: [
         "client_id": "93syVA-O7Gn6Vg",
         "client_secret": "",
