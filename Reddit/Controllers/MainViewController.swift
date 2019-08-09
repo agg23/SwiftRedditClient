@@ -36,5 +36,11 @@ class MainViewController: NSViewController {
             make.left.equalTo(sidebarView.snp.right)
             make.right.equalTo(self.view.snp.rightMargin)
         }
+        
+        sidebarView.set(onSelect: sidebarSelected(item:index:))
+    }
+    
+    func sidebarSelected(item: SidebarItem, index: Int) {
+        print("Selected \(item.title)")
     }
 }

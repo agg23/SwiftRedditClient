@@ -9,15 +9,15 @@
 import AppKit
 
 class SidebarView: NSVisualEffectView {
-    let sidebarView = SidebarTableView()
+    let sidebarTableView = SidebarTableView()
     
     public var data: [SidebarItem]? {
         get {
-            return sidebarView.data
+            return sidebarTableView.data
         }
         set {
-            sidebarView.data = newValue
-            sidebarView.reloadData()
+            sidebarTableView.data = newValue
+            sidebarTableView.reloadData()
         }
     }
     
@@ -26,19 +26,23 @@ class SidebarView: NSVisualEffectView {
         
         self.material = .sidebar
         
-        addSubview(sidebarView)
+        addSubview(sidebarTableView)
         
-        sidebarView.snp.makeConstraints { (make) in
+        sidebarTableView.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.leftMargin)
             make.right.equalTo(self.snp.rightMargin)
             make.top.equalTo(self.snp.topMargin)
             make.bottom.equalTo(self.snp.bottomMargin)
         }
         
-        sidebarView.backgroundColor = .clear
+        sidebarTableView.backgroundColor = .clear
     }
     
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    public func set(onSelect: ((SidebarItem, Int) -> Void)?) {
+        sidebarTableView.onSelect = onSelect
     }
 }
