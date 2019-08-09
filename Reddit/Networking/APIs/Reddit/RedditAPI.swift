@@ -15,8 +15,13 @@ import PromiseKit
 class RedditAPI: MoyaProvider<RedditAPITarget> {
     static let shared = RedditAPI()
     
+    var shouldAuthenticate = false
+    weak var authenticationWindow: NSWindow?
+    
     let sessionManager: SessionManager
     let oAuth = OAuthManager.shared.redditOAuth
+    
+    let oAuthUrl = URL(string: "https://oauth.reddit.com")!
     
     init() {
         sessionManager = SessionManager()
@@ -27,8 +32,20 @@ class RedditAPI: MoyaProvider<RedditAPITarget> {
         sessionManager.retrier = retrier
     }
     
+    override func endpoint(_ target: RedditAPITarget) -> Endpoint {
+        let url: URL
+        
+        if shouldAuthenticate {
+            url = !target.path.isEmpty ? oAuthUrl.appendingPathComponent(target.path) : oAuthUrl
+        } else {
+            url = URL(target: target)
+        }
+        
+        return Endpoint(url: url.absoluteString, sampleResponseClosure: {.networkResponse(200, target.sampleData)}, method: target.method, task: target.task, httpHeaderFields: target.headers)
+    }
+    
     func authenticate(with contextWindow: NSWindow?) -> Promise<Void> {
-        let promise = Promise<Void> { (resolver) in
+        return Promise<Void> { (resolver) in
             oAuth.authConfig.authorizeEmbedded = true
             oAuth.authConfig.authorizeContext = contextWindow
             oAuth.authorize(params: nil) { (json, error) in
@@ -38,7 +55,42 @@ class RedditAPI: MoyaProvider<RedditAPITarget> {
             
             oAuth.logger = OAuth2DebugLogger(.trace)
         }
-        
-        return promise
     }
+    
+    func request<R: Decodable>(from target: Target, with contextWindow: NSWindow? = nil) -> Promise<R> {
+        print(target.path)
+        
+        let window = contextWindow != nil ? contextWindow : authenticationWindow
+        
+        let requestPromise = Promise<R> { (resolver) in
+            self.request(target, completion: { (result) in
+                switch result {
+                case let .success(response):
+                    do {
+                        let objectResponse = try response.map(R.self)
+                        resolver.fulfill(objectResponse)
+                    } catch {
+                        print("Error")
+                        print(response)
+                        print(try! response.mapString())
+                        resolver.reject(error)
+                    }
+                case let .failure(error):
+                    print("Error")
+                    resolver.reject(error)
+                }
+            })
+        }
+        
+        if shouldAuthenticate {
+            return firstly { () -> Promise<Void> in
+                authenticate(with: window)
+            }.then { () -> Promise<R> in
+                requestPromise
+            }
+        }
+        
+        return requestPromise
+    }
+
 }
