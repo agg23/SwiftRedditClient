@@ -101,13 +101,16 @@ struct Link: Thing, Created, Votable {
 }
 
 extension Link {
-    init(original: Link, score: Int? = nil, likes: Bool? = nil, saved: Bool? = nil, hidden: Bool? = nil) {
+    /**
+     Clones the provided Link, updating various user-specified values.
+     Likes is intentially required, as it is ternary
+    */
+    init(original: Link, likes: Bool?, score: Int? = nil, saved: Bool? = nil, hidden: Bool? = nil) {
         let newScore = score ?? original.score
-        let newLikes = likes ?? original.likes
         let newSaved = saved ?? original.saved
         let newHidden = hidden ?? original.hidden
         
-        self.init(id: original.id, name: original.name, kind: original.kind, created: original.created, createdUtc: original.createdUtc, ups: original.ups, downs: original.downs, likes: newLikes, author: original.author, authorFlairCssClass: original.authorFlairCssClass, authorFlairText: original.authorFlairText, clicked: original.clicked, domain: original.domain, hidden: newHidden, isSelf: original.isSelf, linkFlairCssClass: original.linkFlairCssClass, linkFlairText: original.linkFlairText, locked: original.locked, media: original.media, mediaEmbed: original.mediaEmbed, numComments: original.numComments, nsfw: original.nsfw, permalink: original.permalink, saved: newSaved, score: newScore, selfText: original.selfText, selfTextHtml: original.selfTextHtml, subreddit: original.subreddit, subredditId: original.subredditId, thumbnail: original.thumbnail, title: original.title, url: original.url, edited: original.edited, distinguished: original.distinguished, stickied: original.stickied)
+        self.init(id: original.id, name: original.name, kind: original.kind, created: original.created, createdUtc: original.createdUtc, ups: original.ups, downs: original.downs, likes: likes, author: original.author, authorFlairCssClass: original.authorFlairCssClass, authorFlairText: original.authorFlairText, clicked: original.clicked, domain: original.domain, hidden: newHidden, isSelf: original.isSelf, linkFlairCssClass: original.linkFlairCssClass, linkFlairText: original.linkFlairText, locked: original.locked, media: original.media, mediaEmbed: original.mediaEmbed, numComments: original.numComments, nsfw: original.nsfw, permalink: original.permalink, saved: newSaved, score: newScore, selfText: original.selfText, selfTextHtml: original.selfTextHtml, subreddit: original.subreddit, subredditId: original.subredditId, thumbnail: original.thumbnail, title: original.title, url: original.url, edited: original.edited, distinguished: original.distinguished, stickied: original.stickied)
     }
 }
 

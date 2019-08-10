@@ -110,7 +110,7 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
     }
     
     public func reloadData(forRowIndexes: IndexSet) {
-        tableView.reloadData(forRowIndexes: forRowIndexes, columnIndexes: IndexSet())
+        tableView.reloadData(forRowIndexes: forRowIndexes, columnIndexes: IndexSet(integer: 0))
     }
     
     public func resetNearBottomFired() {

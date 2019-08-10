@@ -145,7 +145,7 @@ class LinkViewController: NSViewController {
         
         let rowData = rows[row]
         
-        let newLink = Link(original: rowData, score: newScore, likes: upvote)
+        let newLink = Link(original: rowData, likes: upvote, score: newScore)
         
         // TODO: Move to model class
         rows[row] = newLink
