@@ -35,6 +35,7 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         }
     }
     
+    public var onRegisterActions: ((_ cell: TCellView, _ data: TData, _ index: Int) -> Void)?
     public var onSelect: ((TData, _ index: Int) -> Void)?
     public var onNearScrollBottom: (() -> Void)?
     var nearBottomFired = false
@@ -108,6 +109,10 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         tableView.endUpdates()
     }
     
+    public func reloadData(forRowIndexes: IndexSet) {
+        tableView.reloadData(forRowIndexes: forRowIndexes, columnIndexes: IndexSet())
+    }
+    
     public func resetNearBottomFired() {
         nearBottomFired = false
     }
@@ -115,18 +120,23 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
     // MARK: NSTableViewDelegate, NSTableViewDataSource
     // These cannot appear in an extension due to the generics and ObjC
     func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
-        var rowView = tableView.makeView(withIdentifier: viewIdentifier, owner: self) as? TCellView
+        var newRowView = tableView.makeView(withIdentifier: viewIdentifier, owner: self) as? TCellView
         
-        if rowView == nil {
-            rowView = TCellView()
-            rowView?.identifier = viewIdentifier
+        if newRowView == nil {
+            newRowView = TCellView()
+            newRowView?.identifier = viewIdentifier
         }
         
-        guard let value = data?[row] else {
-            return rowView
+        guard let rowView = newRowView, let value = data?[row] else {
+            return newRowView
         }
         
-        rowView?.data = value
+        rowView.data = value
+        rowView.row = row
+        
+        if let onRegisterActions = onRegisterActions {
+            onRegisterActions(rowView, value, row)
+        }
         
         return rowView
     }

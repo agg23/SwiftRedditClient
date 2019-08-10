@@ -12,6 +12,11 @@ enum RedditAPITarget {
     case subreddit(_: String, type: RedditAPISubredditType, size: Int?, after: String?, previousResults: Int?)
     case comments(in: String, on: String)
     case moreComments(link: String, childrenIds: [String])
+    
+    // Mutations
+    case vote(upvote: Bool?, id: String)
+    
+    // User
     case messages
 }
 
@@ -66,6 +71,8 @@ extension RedditAPITarget: TargetType {
             return "/r/\(subreddit)/comments/\(link).json"
         case .moreComments(_):
             return "/api/morechildren.json"
+        case .vote(_):
+            return "/api/vote"
         case .messages:
             return "/message/inbox.json"
         }
@@ -79,6 +86,8 @@ extension RedditAPITarget: TargetType {
             return .get
         case .moreComments(_):
             return .get
+        case .vote(_):
+            return .post
         case .messages:
             return .get
         }
@@ -123,6 +132,16 @@ extension RedditAPITarget: TargetType {
             ]
             
             return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+        case .vote(let upvote, let id):
+            var upvoteInt = 0
+            
+            if let upvoteBool = upvote {
+                upvoteInt = upvoteBool ? 1 : -1
+            }
+            
+            let parameters = ["dir": String(describing: upvoteInt), "id": id]
+            
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
         case .messages:
             return .requestPlain
         }
@@ -135,6 +154,8 @@ extension RedditAPITarget: TargetType {
     var requiresOAuth: Bool {
         switch self {
         case .messages:
+            return true
+        case .vote(_):
             return true
         default:
             return false

@@ -42,6 +42,7 @@ class LinkViewController: NSViewController {
         
         tableView.scrollLoadIndex = 20
         tableView.onNearScrollBottom = self.onNearScrollBottom
+        tableView.onRegisterActions = self.onRegisterActions
         
         progressView.isIndeterminate = true
         progressView.style = .spinning
@@ -116,6 +117,48 @@ class LinkViewController: NSViewController {
         if !self.loadingLinks {
             fetchSubreddit(from: subreddit, with: .hot, size: nil, after: afterName, existingCount: data.count)
         }
+    }
+    
+    private func onRegisterActions(_ cell: LinkTableViewRow, _ data: Link, _ index: Int) {
+        cell.upvoteButtonAction = clickedScore(data:row:)
+    }
+    
+    func clickedScore(data: Link, row: Int) {
+        print("Clicked score \(data.name)")
+        
+        var upvote: Bool?
+        var newScore = data.score
+        
+        if let likes = data.likes, likes {
+            upvote = nil
+            newScore -= 1
+        } else {
+            upvote = true
+            newScore += 1
+        }
+        
+        var rows = self.tableView.data ?? []
+        
+        guard rows.count > row else {
+            return
+        }
+        
+        let rowData = rows[row]
+        
+        let newLink = Link(original: rowData, score: newScore, likes: upvote)
+        
+        // TODO: Move to model class
+        rows[row] = newLink
+        
+        self.tableView.data = rows
+        self.tableView.reloadData(forRowIndexes: IndexSet(integer: row))
+        
+        firstly { () -> Promise<Empty> in
+            return RedditAPI.shared.request(from: .vote(upvote: upvote, id: data.name))
+        }.catch { (error) in
+            print(error)
+        }
+        
     }
     
     private func fetchSubreddit(from subreddit: String, with type: RedditAPISubredditType, size: Int?, after: String?, existingCount: Int?, replaceData: Bool = false) {

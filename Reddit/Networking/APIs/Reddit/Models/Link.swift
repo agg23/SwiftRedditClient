@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Link: Thing, Created, Votable, Decodable {
+struct Link: Thing, Created, Votable {
     enum LinkKeys: String, CodingKey {
         case id
         case name
@@ -95,6 +95,23 @@ struct Link: Thing, Created, Votable, Decodable {
     let distinguished: String?
     let stickied: Bool
     
+    public func isSelfPost(in subreddit: String) -> Bool {
+        return domain.lowercased() == "self.\(subreddit.lowercased())"
+    }
+}
+
+extension Link {
+    init(original: Link, score: Int? = nil, likes: Bool? = nil, saved: Bool? = nil, hidden: Bool? = nil) {
+        let newScore = score ?? original.score
+        let newLikes = likes ?? original.likes
+        let newSaved = saved ?? original.saved
+        let newHidden = hidden ?? original.hidden
+        
+        self.init(id: original.id, name: original.name, kind: original.kind, created: original.created, createdUtc: original.createdUtc, ups: original.ups, downs: original.downs, likes: newLikes, author: original.author, authorFlairCssClass: original.authorFlairCssClass, authorFlairText: original.authorFlairText, clicked: original.clicked, domain: original.domain, hidden: newHidden, isSelf: original.isSelf, linkFlairCssClass: original.linkFlairCssClass, linkFlairText: original.linkFlairText, locked: original.locked, media: original.media, mediaEmbed: original.mediaEmbed, numComments: original.numComments, nsfw: original.nsfw, permalink: original.permalink, saved: newSaved, score: newScore, selfText: original.selfText, selfTextHtml: original.selfTextHtml, subreddit: original.subreddit, subredditId: original.subredditId, thumbnail: original.thumbnail, title: original.title, url: original.url, edited: original.edited, distinguished: original.distinguished, stickied: original.stickied)
+    }
+}
+
+extension Link: Decodable {
     init(from decoder: Decoder) throws {
         let thingContainer = try decoder.container(keyedBy: ThingKeys.self)
         
@@ -120,7 +137,7 @@ struct Link: Thing, Created, Votable, Decodable {
         domain = try container.decode(String.self, forKey: .domain)
         hidden = try container.decode(Bool.self, forKey: .hidden)
         isSelf = try container.decode(Bool.self, forKey: .isSelf)
-
+        
         linkFlairCssClass = try container.decodeIfPresent(String.self, forKey: .linkFlairCssClass)
         linkFlairText = try container.decodeIfPresent(String.self, forKey: .linkFlairText)
         
@@ -149,8 +166,5 @@ struct Link: Thing, Created, Votable, Decodable {
         distinguished = try container.decodeIfPresent(String.self, forKey: .distinguished)
         stickied = try container.decode(Bool.self, forKey: .stickied)
     }
-    
-    public func isSelfPost(in subreddit: String) -> Bool {
-        return domain.lowercased() == "self.\(subreddit.lowercased())"
-    }
+
 }

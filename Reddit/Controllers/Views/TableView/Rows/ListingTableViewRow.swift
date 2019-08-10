@@ -18,4 +18,6 @@ class ListingTableViewRow<T>: NSView {
             _data = newValue
         }
     }
+    
+    var row: Int?
 }

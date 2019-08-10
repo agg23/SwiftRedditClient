@@ -30,33 +30,52 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
         }
     }
     
+    let scoreStackView = NSStackView()
     let scoreLabel = NSLabel()
+    let upvoteButton = NSButton()
     let titleLabel = NSLabel()
+    
+    var upvoteButtonAction: ((_ data: Link, _ index: Int) -> Void)?
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
-
-        addSubview(scoreLabel)
+        
+        addSubview(scoreStackView)
         addSubview(titleLabel)
         
-        scoreLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        scoreStackView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         
-        scoreLabel.snp.makeConstraints { (make) in
+        scoreStackView.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.leftMargin)
             make.top.equalTo(self.snp.topMargin)
             make.bottom.equalTo(self.snp.bottomMargin)
         }
         
         titleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(scoreLabel.snp.right).offset(10)
+            make.left.equalTo(scoreStackView.snp.right).offset(10)
             make.right.equalTo(self.snp.rightMargin)
             make.top.equalTo(self.snp.topMargin)
             make.bottom.equalTo(self.snp.bottomMargin)
         }
+        
+        scoreStackView.setViews([scoreLabel, upvoteButton], in: .center)
+        scoreStackView.orientation = .vertical
+        
+        upvoteButton.title = "+1"
+        upvoteButton.target = self
+        upvoteButton.action = #selector(upvoteButtonClicked)
     }
     
     required init?(coder decoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func upvoteButtonClicked() {
+        guard let data = data, let row = row, let upvoteButtonAction = upvoteButtonAction else {
+            return
+        }
+        
+        upvoteButtonAction(data, row)
     }
 }
