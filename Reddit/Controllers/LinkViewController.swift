@@ -120,22 +120,39 @@ class LinkViewController: NSViewController {
     }
     
     private func onRegisterActions(_ cell: LinkTableViewRow, _ data: Link, _ index: Int) {
-        cell.upvoteButtonAction = clickedScore(data:row:)
+        cell.upvoteButtonAction = upvote(data:row:)
+        cell.downvoteButtonAction = downvote(data:row:)
     }
     
-    func clickedScore(data: Link, row: Int) {
-        print("Clicked score \(data.name)")
-        
+    func upvote(data: Link, row: Int) {
+        clickedScore(isUpvote: true, data: data, row: row)
+    }
+    
+    func downvote(data: Link, row: Int) {
+        clickedScore(isUpvote: false, data: data, row: row)
+    }
+    
+    func clickedScore(isUpvote: Bool, data: Link, row: Int) {
         var upvote: Bool?
         var newScore = data.score
         
-        if let likes = data.likes, likes {
-            upvote = nil
-            newScore -= 1
+        if let likes = data.likes {
+            if likes {
+                // Switch from upvote to no vote or downvote
+                upvote = isUpvote ? nil : false
+                newScore += isUpvote ? -1 : -2
+            } else {
+                // Switch from downvote to no vote or upvote
+                upvote = isUpvote ? true : nil
+                newScore += isUpvote ? 2 : 1
+            }
         } else {
-            upvote = true
-            newScore += 1
+            // No current user score
+            upvote = isUpvote
+            newScore += isUpvote ? 1 : -1
         }
+        
+        print("Clicked score \(data.name), \(isUpvote), \(upvote), \(newScore)")
         
         var rows = self.tableView.data ?? []
         

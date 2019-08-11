@@ -146,7 +146,7 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 40
+        return 80
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {

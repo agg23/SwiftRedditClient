@@ -20,7 +20,7 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
             titleLabel.stringValue = _data?.title ?? ""
             scoreLabel.stringValue = "\(data?.score ?? 0)"
             
-            var color: NSColor = .textColor
+            var color: NSColor?
             
             if let likes = data?.likes {
                 color = likes ? .orange : .blue
@@ -31,11 +31,14 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
     }
     
     let scoreStackView = NSStackView()
-    let scoreLabel = NSLabel()
     let upvoteButton = NSButton()
+    let scoreLabel = NSLabel()
+    let downvoteButton = NSButton()
+    
     let titleLabel = NSLabel()
     
     var upvoteButtonAction: ((_ data: Link, _ index: Int) -> Void)?
+    var downvoteButtonAction: ((_ data: Link, _ index: Int) -> Void)?
     
     override init(frame frameRect: NSRect) {
         super.init(frame: frameRect)
@@ -44,7 +47,9 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
         addSubview(titleLabel)
         
         scoreStackView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-        titleLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        scoreStackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        titleLabel.setContentCompressionResistancePriority(.defaultLow + 1, for: .horizontal)
+        titleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         
         scoreStackView.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.leftMargin)
@@ -59,12 +64,16 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
             make.bottom.equalTo(self.snp.bottomMargin)
         }
         
-        scoreStackView.setViews([scoreLabel, upvoteButton], in: .center)
+        scoreStackView.setViews([upvoteButton, scoreLabel, downvoteButton], in: .center)
         scoreStackView.orientation = .vertical
         
         upvoteButton.title = "+1"
         upvoteButton.target = self
         upvoteButton.action = #selector(upvoteButtonClicked)
+        
+        downvoteButton.title = "-1"
+        downvoteButton.target = self
+        downvoteButton.action = #selector(downvoteButtonClicked)
     }
     
     required init?(coder decoder: NSCoder) {
@@ -77,5 +86,13 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
         }
         
         upvoteButtonAction(data, row)
+    }
+    
+    @objc func downvoteButtonClicked() {
+        guard let data = data, let row = row, let downvoteButtonAction = downvoteButtonAction else {
+            return
+        }
+        
+        downvoteButtonAction(data, row)
     }
 }
