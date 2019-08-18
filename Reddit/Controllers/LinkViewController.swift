@@ -11,7 +11,7 @@ import SnapKit
 import PromiseKit
 
 class LinkViewController: NSViewController {
-    let tableView = ListingTableView<Link, LinkTableViewRow>()
+    let tableView = LinkTableView()
     
     let progressView = NSProgressIndicator()
     

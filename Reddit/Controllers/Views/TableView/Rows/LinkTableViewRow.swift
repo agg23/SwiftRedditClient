@@ -30,12 +30,20 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
         }
     }
     
+    var image: NSImage? {
+        didSet {
+            imageView.image = image
+        }
+    }
+    
     let scoreStackView = NSStackView()
     let upvoteButton = NSButton()
     let scoreLabel = NSLabel()
     let downvoteButton = NSButton()
     
+    let mainStackView = NSStackView()
     let titleLabel = NSLabel()
+    let imageView = NSImageView()
     
     var upvoteButtonAction: ((_ data: Link, _ index: Int) -> Void)?
     var downvoteButtonAction: ((_ data: Link, _ index: Int) -> Void)?
@@ -44,25 +52,28 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
         super.init(frame: frameRect)
         
         addSubview(scoreStackView)
-        addSubview(titleLabel)
+        addSubview(mainStackView)
         
         scoreStackView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         scoreStackView.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         titleLabel.setContentCompressionResistancePriority(.defaultLow + 1, for: .horizontal)
         titleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         
-        scoreStackView.snp.makeConstraints { (make) in
-            make.left.equalTo(self.snp.leftMargin)
-            make.top.equalTo(self.snp.topMargin)
-            make.bottom.equalTo(self.snp.bottomMargin)
-        }
+//        scoreStackView.snp.makeConstraints { (make) in
+//            make.left.equalTo(self.snp.leftMargin)
+//            make.top.equalTo(self.snp.topMargin)
+//            make.bottom.equalTo(self.snp.bottomMargin)
+//        }
         
-        titleLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(scoreStackView.snp.right).offset(10)
+        mainStackView.snp.makeConstraints { (make) in
+            make.left.equalTo(self.snp.leftMargin).offset(10)
             make.right.equalTo(self.snp.rightMargin)
             make.top.equalTo(self.snp.topMargin)
             make.bottom.equalTo(self.snp.bottomMargin)
         }
+        
+        mainStackView.setViews([scoreStackView, titleLabel, imageView], in: .center)
+        mainStackView.orientation = .horizontal
         
         scoreStackView.setViews([upvoteButton, scoreLabel, downvoteButton], in: .center)
         scoreStackView.orientation = .vertical
