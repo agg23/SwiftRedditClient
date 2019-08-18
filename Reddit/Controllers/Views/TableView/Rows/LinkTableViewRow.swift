@@ -10,15 +10,18 @@ import AppKit
 import SnapKit
 
 class LinkTableViewRow: ListingTableViewRow<Link> {
-    // MARK: ListingTableViewRow
     override var data: Link? {
         get {
             return _data
         }
         set {
             _data = newValue
+            
+            let score = data?.score ?? 0
+            
             titleLabel.stringValue = _data?.title ?? ""
-            scoreLabel.stringValue = "\(data?.score ?? 0)"
+            scoreLabel.stringValue = truncate(score)
+            scoreLabel.toolTip = format(score)
             
             var color: NSColor?
             
@@ -30,9 +33,20 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
         }
     }
     
+    let textCenterAlignImage: NSImage
+    var _image: NSImage
     var image: NSImage? {
-        didSet {
-            imageView.image = image
+        get {
+            return _image
+        }
+        set {
+            if let newValue = newValue {
+                _image = newValue
+            } else {
+                _image = textCenterAlignImage
+            }
+            
+            imageView.image = _image
         }
     }
     
@@ -49,7 +63,15 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
     var downvoteButtonAction: ((_ data: Link, _ index: Int) -> Void)?
     
     override init(frame frameRect: NSRect) {
+        let textImage = NSImage(named: NSImage.listViewTemplateName)!
+        textCenterAlignImage = textImage.resized(to: NSSize(width: 34, height: 34))!
+        textCenterAlignImage.isTemplate = true
+        
+        _image = textCenterAlignImage
+        
         super.init(frame: frameRect)
+        
+        imageView.image = _image
         
         addSubview(scoreStackView)
         addSubview(mainStackView)
@@ -59,11 +81,9 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
         titleLabel.setContentCompressionResistancePriority(.defaultLow + 1, for: .horizontal)
         titleLabel.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
         
-//        scoreStackView.snp.makeConstraints { (make) in
-//            make.left.equalTo(self.snp.leftMargin)
-//            make.top.equalTo(self.snp.topMargin)
-//            make.bottom.equalTo(self.snp.bottomMargin)
-//        }
+        scoreStackView.snp.makeConstraints { (make) in
+            make.width.equalTo(40)
+        }
         
         mainStackView.snp.makeConstraints { (make) in
             make.left.equalTo(self.snp.leftMargin).offset(10)
@@ -72,7 +92,12 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
             make.bottom.equalTo(self.snp.bottomMargin)
         }
         
-        mainStackView.setViews([scoreStackView, titleLabel, imageView], in: .center)
+        imageView.snp.makeConstraints { make in
+            make.width.equalTo(60)
+            make.height.equalTo(imageView.snp.width)
+        }
+        
+        mainStackView.setViews([scoreStackView, imageView, titleLabel], in: .center)
         mainStackView.orientation = .horizontal
         
         scoreStackView.setViews([upvoteButton, scoreLabel, downvoteButton], in: .center)
