@@ -103,13 +103,19 @@ class LinkTableViewRow: ListingTableViewRow<Link> {
         scoreStackView.setViews([upvoteButton, scoreLabel, downvoteButton], in: .center)
         scoreStackView.orientation = .vertical
         
-        upvoteButton.title = "+1"
+        guard let font = NSFont(name: "SF Pro Text", size: 13) else {
+            return
+        }
+        
+        upvoteButton.title = "\u{2191}"
         upvoteButton.target = self
         upvoteButton.action = #selector(upvoteButtonClicked)
+        upvoteButton.font = font
         
-        downvoteButton.title = "-1"
+        downvoteButton.title = "\u{2193}"
         downvoteButton.target = self
         downvoteButton.action = #selector(downvoteButtonClicked)
+        downvoteButton.font = font
     }
     
     required init?(coder decoder: NSCoder) {
