@@ -23,6 +23,9 @@ class ToolbarController: NSObject {
     let toolbar: NSToolbar
     var items: [NSToolbarItem.Identifier] = [NSToolbarItem.Identifier.flexibleSpace, NSToolbarItem.Identifier(rawValue: ToolbarItem.postCommentGroup.rawValue)]
     
+    var onClickPost: (() -> Void)?
+    var onClickComment: (() -> Void)?
+    
     override init() {
         toolbar = NSToolbar(identifier: "Toolbar")
         
@@ -32,12 +35,28 @@ class ToolbarController: NSObject {
         toolbar.displayMode = .iconOnly
     }
     
+    public func set(onClickPost: (() -> Void)?) {
+        self.onClickPost = onClickPost
+    }
+    
+    public func set(onClickComment: (() -> Void)?) {
+        self.onClickComment = onClickComment
+    }
+    
     @objc func clickPost() {
-        print("Post")
+        guard let onClickPost = onClickPost else {
+            return
+        }
+        
+        onClickPost()
     }
     
     @objc func clickComment() {
-        print("Comment")
+        guard let onClickComment = onClickComment else {
+            return
+        }
+        
+        onClickComment()
     }
 }
 

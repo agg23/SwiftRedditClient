@@ -18,7 +18,7 @@ class SplitContentViewController: NSViewController {
     let selfPostSplitItem: NSSplitViewItem
     let webContentSplitItem: NSSplitViewItem
     
-    var activeSplitViewItem: NSSplitViewItem
+    var activeSplitViewItem: NSSplitViewItem?
     
     override init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) {
         selfPostViewController = SelfPostViewController()
@@ -26,8 +26,6 @@ class SplitContentViewController: NSViewController {
         
         selfPostSplitItem = NSSplitViewItem(viewController: selfPostViewController)
         webContentSplitItem = NSSplitViewItem(viewController: webContentViewController)
-        
-        activeSplitViewItem = webContentSplitItem
         
         super.init(nibName: nil, bundle: nil)
     }
@@ -54,7 +52,10 @@ class SplitContentViewController: NSViewController {
         selfPostSplitItem.holdingPriority = .defaultLow
         
         splitViewController.addSplitViewItem(linkSplitItem)
-        splitViewController.addSplitViewItem(webContentSplitItem)
+        activateWebContent()
+        
+        ToolbarController.shared.set(onClickPost: toolbarPostClicked)
+        ToolbarController.shared.set(onClickComment: toolbarCommentClicked)
         
         linkViewController.set(onSelect: selected(link:index:))
     }
@@ -66,12 +67,20 @@ class SplitContentViewController: NSViewController {
     func selected(link: Link, index: Int) {
         if link.isSelfPost(in: linkViewController.subreddit) {
             // Self Post
-            activateSelfPost()
-            selfPostViewController.set(data: link)
+            selectSelfPost(with: link, index: index)
         } else {
-            activateWebContent()
-            webContentViewController.set(url: URL(string: link.url)!)
+            selectWebContent(with: link, index: index)
         }
+    }
+    
+    func selectSelfPost(with link: Link, index: Int) {
+        activateSelfPost()
+        selfPostViewController.set(data: link)
+    }
+    
+    func selectWebContent(with link: Link, index: Int) {
+        activateWebContent()
+        webContentViewController.set(url: URL(string: link.url)!)
     }
     
     func activateWebContent() {
@@ -79,7 +88,9 @@ class SplitContentViewController: NSViewController {
             return
         }
         
-        splitViewController.removeSplitViewItem(activeSplitViewItem)
+        if let activeSplitViewItem = activeSplitViewItem {
+            splitViewController.removeSplitViewItem(activeSplitViewItem)
+        }
         splitViewController.addSplitViewItem(webContentSplitItem)
         activeSplitViewItem = webContentSplitItem
     }
@@ -89,8 +100,24 @@ class SplitContentViewController: NSViewController {
             return
         }
         
-        splitViewController.removeSplitViewItem(activeSplitViewItem)
+        if let activeSplitViewItem = activeSplitViewItem {
+            splitViewController.removeSplitViewItem(activeSplitViewItem)
+        }
         splitViewController.addSplitViewItem(selfPostSplitItem)
         activeSplitViewItem = selfPostSplitItem
+    }
+    
+    func toolbarPostClicked() {
+        guard let selectedLink = linkViewController.selectedLink, let selectedIndex = linkViewController.selectedIndex else {
+            return
+        }
+        selected(link: selectedLink, index: selectedIndex)
+    }
+    
+    func toolbarCommentClicked() {
+        guard let selectedLink = linkViewController.selectedLink, let selectedIndex = linkViewController.selectedIndex else {
+            return
+        }
+        selectSelfPost(with: selectedLink, index: selectedIndex)
     }
 }

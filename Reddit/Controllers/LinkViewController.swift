@@ -26,6 +26,10 @@ class LinkViewController: NSViewController {
     var loadingLinks = false
     var subreddit = "programming"
     
+    var selectedLink: Link?
+    var selectedIndex: Int?
+    var childOnSelect: ((Link, Int) -> Void)?
+    
     override func loadView() {
         view = NSView()
         view.addSubview(tableView)
@@ -88,6 +92,8 @@ class LinkViewController: NSViewController {
             make.right.equalTo(self.view.snp.rightMargin)
             make.bottom.equalTo(self.view.snp.bottomMargin)
         }
+        
+        tableView.onSelect = onSelect(link:index:)
     }
     
     override func viewDidAppear() {
@@ -247,10 +253,21 @@ class LinkViewController: NSViewController {
     }
     
     public func set(onSelect: ((Link, Int) -> Void)?) {
-        tableView.onSelect = onSelect
+        childOnSelect = onSelect
     }
     
     // MARK: Input
+    
+    private func onSelect(link: Link, index: Int) {
+        selectedLink = link
+        selectedIndex = index
+        
+        guard let childOnSelect = childOnSelect else {
+            return
+        }
+        
+        childOnSelect(link, index)
+    }
     
     @objc private func subredditEntered() {
         fetchSubreddit(from: subredditTextField.stringValue, with: .hot, size: nil, after: nil, existingCount: nil, replaceData: true)
