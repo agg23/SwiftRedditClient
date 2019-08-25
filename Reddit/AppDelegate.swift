@@ -21,6 +21,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         window.minSize = NSSize(width: 1000, height: 700)
         window.contentViewController = viewController
+        
+        window.toolbar = ToolbarController.shared.toolbar
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
