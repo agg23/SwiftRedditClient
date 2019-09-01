@@ -41,6 +41,7 @@
 		665EACF922FF20F500D00584 /* Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665EACF822FF20F500D00584 /* Empty.swift */; };
 		669B8E412312D251002DFDE2 /* ToolbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669B8E402312D251002DFDE2 /* ToolbarController.swift */; };
 		669B8E442312F03B002DFDE2 /* SegmentedToolbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 669B8E432312F03B002DFDE2 /* SegmentedToolbar.swift */; };
+		66BE7EDF231C372200B62E14 /* CommentUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BE7EDE231C372200B62E14 /* CommentUtil.swift */; };
 		66EB268E22B6D36300824102 /* Listing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB268D22B6D36300824102 /* Listing.swift */; };
 		66EB269022B6D3DB00824102 /* Thing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66EB268F22B6D3DB00824102 /* Thing.swift */; };
 		66EB269222B7110900824102 /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66EB269122B7110900824102 /* PromiseKit.framework */; };
@@ -122,6 +123,7 @@
 		665EACF822FF20F500D00584 /* Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Empty.swift; sourceTree = "<group>"; };
 		669B8E402312D251002DFDE2 /* ToolbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToolbarController.swift; sourceTree = "<group>"; };
 		669B8E432312F03B002DFDE2 /* SegmentedToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedToolbar.swift; sourceTree = "<group>"; };
+		66BE7EDE231C372200B62E14 /* CommentUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentUtil.swift; sourceTree = "<group>"; };
 		66EB268D22B6D36300824102 /* Listing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Listing.swift; path = Reddit/Networking/APIs/Reddit/Models/Listing.swift; sourceTree = SOURCE_ROOT; };
 		66EB268F22B6D3DB00824102 /* Thing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Thing.swift; sourceTree = "<group>"; };
 		66EB269122B7110900824102 /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/Mac/PromiseKit.framework; sourceTree = "<group>"; };
@@ -296,6 +298,7 @@
 				66EB26AE22BEA3EC00824102 /* CommentMore.swift */,
 				6608D5DF22DB990B008C1C6D /* MoreCommentsResponse.swift */,
 				665EACF822FF20F500D00584 /* Empty.swift */,
+				66BE7EDE231C372200B62E14 /* CommentUtil.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -592,6 +595,7 @@
 				669B8E412312D251002DFDE2 /* ToolbarController.swift in Sources */,
 				66EB26A322BB291800824102 /* OAuthRetryHandler.swift in Sources */,
 				66EB26BD22BFC35000824102 /* NSViewController+Children.swift in Sources */,
+				66BE7EDF231C372200B62E14 /* CommentUtil.swift in Sources */,
 				6622180D2309A3C7004902D8 /* ImageCache.swift in Sources */,
 				66EB26B822BEB03A00824102 /* ListingTableViewRow.swift in Sources */,
 				661734DB22B6CF43005F557F /* Votable.swift in Sources */,

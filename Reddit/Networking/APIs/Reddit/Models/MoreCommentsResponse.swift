@@ -18,21 +18,14 @@ struct MoreCommentsResponse: Decodable {
     }
     
     let comments: [Comment]
+    let commentMore: CommentMore?
     
     init(from decoder: Decoder) throws {
         let responseContainer = try decoder.container(keyedBy: MoreCommentsKeys.self)
         let thingContainer = try responseContainer.nestedContainer(keyedBy: ThingKeys.self, forKey: .json)
         let dataContainer = try thingContainer.nestedContainer(keyedBy: MoreCommentsInnerKeys.self, forKey: .data)
-        var childrenContainer = try dataContainer.nestedUnkeyedContainer(forKey: .things)
+        let childrenContainer = try dataContainer.nestedUnkeyedContainer(forKey: .things)
         
-        let childrenCount = childrenContainer.count ?? 0
-        var foundComments: [Comment] = []
-        
-        for _ in 0..<childrenCount {
-            let comment = try childrenContainer.decode(Comment.self)
-            foundComments.append(comment)
-        }
-        
-        comments = foundComments
+        (comments, commentMore) = decodeCommentsAndMore(commentContainer: childrenContainer)
     }
 }

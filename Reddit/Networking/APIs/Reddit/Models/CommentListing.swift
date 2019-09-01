@@ -31,23 +31,8 @@ struct CommentListing: Decodable {
         after = try container.decodeIfPresent(String.self, forKey: .after)
         modhash = try container.decodeIfPresent(String.self, forKey: .modhash)
         
-        var childrenContainer = try container.nestedUnkeyedContainer(forKey: .children)
+        let childrenContainer = try container.nestedUnkeyedContainer(forKey: .children)
         
-        let childrenCount = childrenContainer.count ?? 0
-        
-        var foundComments: [Comment] = []
-        var foundMore: CommentMore?
-        
-        for i in 0..<childrenCount {
-            if i == childrenCount - 1 {
-                foundMore = try childrenContainer.decodeIfPresent(CommentMore.self)
-            } else {
-                let comment = try childrenContainer.decode(Comment.self)
-                foundComments.append(comment)
-            }
-        }
-        
-        comments = foundComments
-        more = foundMore
+        (comments, more) = decodeCommentsAndMore(commentContainer: childrenContainer)
     }
 }
