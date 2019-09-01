@@ -54,6 +54,7 @@ class SplitContentViewController: NSViewController {
         splitViewController.addSplitViewItem(linkSplitItem)
         activateWebContent()
         
+        ToolbarController.shared.set(onClickShare: toolbarShareClicked)
         ToolbarController.shared.set(onClickPost: toolbarPostClicked)
         ToolbarController.shared.set(onClickComment: toolbarCommentClicked)
         
@@ -67,8 +68,10 @@ class SplitContentViewController: NSViewController {
     func selected(link: Link, index: Int) {
         if link.isSelfPost(in: linkViewController.subreddit) {
             // Self Post
+            ToolbarController.shared.highlight(post: false)
             selectSelfPost(with: link, index: index)
         } else {
+            ToolbarController.shared.highlight(post: true)
             selectWebContent(with: link, index: index)
         }
     }
@@ -105,6 +108,15 @@ class SplitContentViewController: NSViewController {
         }
         splitViewController.addSplitViewItem(selfPostSplitItem)
         activeSplitViewItem = selfPostSplitItem
+    }
+    
+    func toolbarShareClicked() {
+        guard let selectedLink = linkViewController.selectedLink,
+            let url = URL(string: selectedLink.url) else {
+            return
+        }
+        
+        NSWorkspace.shared.open(url)
     }
     
     func toolbarPostClicked() {

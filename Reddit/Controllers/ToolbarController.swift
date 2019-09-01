@@ -9,6 +9,8 @@
 import Cocoa
 
 enum ToolbarItem: String {
+    case subredditTextField
+    case safariButton
     case postCommentGroup
 }
 
@@ -21,8 +23,15 @@ class ToolbarController: NSObject {
     static let shared = ToolbarController()
     
     let toolbar: NSToolbar
-    var items: [NSToolbarItem.Identifier] = [NSToolbarItem.Identifier.flexibleSpace, NSToolbarItem.Identifier(rawValue: ToolbarItem.postCommentGroup.rawValue)]
+    var segmentedToolbar: SegmentedToolbar?
+    var items: [NSToolbarItem.Identifier] = [
+        NSToolbarItem.Identifier.flexibleSpace,
+        NSToolbarItem.Identifier(rawValue: ToolbarItem.subredditTextField.rawValue),
+        NSToolbarItem.Identifier.flexibleSpace,
+        NSToolbarItem.Identifier(rawValue: ToolbarItem.safariButton.rawValue),
+        NSToolbarItem.Identifier(rawValue: ToolbarItem.postCommentGroup.rawValue)]
     
+    var onClickShare: (() -> Void)?
     var onClickPost: (() -> Void)?
     var onClickComment: (() -> Void)?
     
@@ -35,12 +44,24 @@ class ToolbarController: NSObject {
         toolbar.displayMode = .iconOnly
     }
     
+    public func set(onClickShare: (() -> Void)?) {
+        self.onClickShare = onClickShare
+    }
+    
     public func set(onClickPost: (() -> Void)?) {
         self.onClickPost = onClickPost
     }
     
     public func set(onClickComment: (() -> Void)?) {
         self.onClickComment = onClickComment
+    }
+    
+    @objc func clickShare() {
+        guard let onClickShare = onClickShare else {
+            return
+        }
+        
+        onClickShare()
     }
     
     @objc func clickPost() {
@@ -58,6 +79,10 @@ class ToolbarController: NSObject {
         
         onClickComment()
     }
+    
+    func highlight(post: Bool) {
+        segmentedToolbar?.segmentedControl.selectedSegment = post ? 0 : 1
+    }
 }
 
 extension ToolbarController: NSToolbarDelegate {
@@ -67,6 +92,23 @@ extension ToolbarController: NSToolbarDelegate {
         }
         
         switch identifier {
+        case .subredditTextField:
+            let subredditItem = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier(rawValue: ToolbarItem.subredditTextField.rawValue))
+            let textField = NSTextField()
+            subredditItem.view = textField
+            
+            return subredditItem
+        case .safariButton:
+            let safariItem = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier(rawValue: ToolbarItem.safariButton.rawValue))
+            let button = NSButton()
+            button.image = NSImage(named: NSImage.shareTemplateName)
+            button.bezelStyle = .texturedRounded
+            button.action = #selector(clickShare)
+            button.target = self
+            
+            safariItem.view = button
+            
+            return safariItem
         case .postCommentGroup:
             let postItem = NSToolbarItem(itemIdentifier: NSToolbarItem.Identifier(rawValue: ToolbarChildItem.post.rawValue))
             postItem.image = NSImage(named: NSImage.bookmarksTemplateName)
@@ -78,8 +120,9 @@ extension ToolbarController: NSToolbarDelegate {
             commentItem.action = #selector(clickComment)
             commentItem.target = self
             
-            let segmentedToolbar = SegmentedToolbar(itemIdentifier: NSToolbarItem.Identifier(rawValue: ToolbarItem.postCommentGroup.rawValue), items: [postItem, commentItem])
-            return segmentedToolbar
+            let segmented = SegmentedToolbar(itemIdentifier: NSToolbarItem.Identifier(rawValue: ToolbarItem.postCommentGroup.rawValue), items: [postItem, commentItem])
+            segmentedToolbar = segmented
+            return segmented
         }
     }
     

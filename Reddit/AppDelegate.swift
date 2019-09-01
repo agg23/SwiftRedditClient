@@ -19,6 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         RedditAPI.shared.shouldAuthenticate = true
         RedditAPI.shared.authenticationWindow = window
         
+        window.titleVisibility = .hidden
+        
         window.minSize = NSSize(width: 1000, height: 700)
         window.contentViewController = viewController
         

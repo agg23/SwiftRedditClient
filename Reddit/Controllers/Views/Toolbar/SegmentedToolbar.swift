@@ -21,7 +21,7 @@ class SegmentedToolbar: NSToolbarItemGroup {
         subitems = items
         
         segmentedControl.segmentStyle = .texturedSquare
-        segmentedControl.trackingMode = .momentary
+        segmentedControl.trackingMode = .selectOne
         segmentedControl.segmentCount = items.count
         segmentedControl.focusRingType = .none
         
