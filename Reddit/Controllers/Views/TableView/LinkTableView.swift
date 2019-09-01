@@ -14,9 +14,11 @@ class LinkTableView: ListingTableView<Link, LinkTableViewRow> {
     override func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
         let newRowView = super.tableView(tableView, viewFor: tableColumn, row: row)
         
-        guard let rowView = newRowView, let value = data?[row] else {
+        guard let rowView = newRowView as? LinkTableViewRow, let value = data?[row] else {
             return newRowView
         }
+        
+        rowView.image = nil
         
         if value.thumbnail != "" && value.thumbnail != "self" {
             ImageCache.shared.image(for: value.thumbnail) { result in
