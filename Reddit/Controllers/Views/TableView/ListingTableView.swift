@@ -117,9 +117,7 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         nearBottomFired = false
     }
     
-    // MARK: NSTableViewDelegate, NSTableViewDataSource
-    // These cannot appear in an extension due to the generics and ObjC
-    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+    func populateRowView(in tableView: NSTableView, row: Int, shouldRegister: Bool = false) -> NSView? {
         var newRowView = tableView.makeView(withIdentifier: viewIdentifier, owner: self) as? TCellView
         
         if newRowView == nil {
@@ -134,11 +132,17 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         rowView.data = value
         rowView.row = row
         
-        if let onRegisterActions = onRegisterActions {
+        if shouldRegister, let onRegisterActions = onRegisterActions {
             onRegisterActions(rowView, value, row)
         }
         
         return rowView
+    }
+    
+    // MARK: NSTableViewDelegate, NSTableViewDataSource
+    // These cannot appear in an extension due to the generics and ObjC
+    func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+        return populateRowView(in: tableView, row: row, shouldRegister: true)
     }
     
     func numberOfRows(in tableView: NSTableView) -> Int {
@@ -146,7 +150,13 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
-        return 80
+        let view = populateRowView(in: tableView, row: row)
+        
+        view?.frame.size.width = tableView.bounds.size.width
+        view?.needsLayout = true
+        view?.layoutSubtreeIfNeeded()
+        
+        return view?.fittingSize.height ?? 10
     }
     
     func tableViewSelectionDidChange(_ notification: Notification) {
@@ -157,6 +167,15 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         
         print("Selected \(row)")
         onSelect(value, row)
+    }
+    
+    func tableViewColumnDidResize(_ notification: Notification) {
+        let allIndexes = IndexSet(integersIn: 0..<tableView.numberOfRows)
+        
+        NSAnimationContext.beginGrouping()
+        NSAnimationContext.current.duration = 0
+        tableView.noteHeightOfRows(withIndexesChanged: allIndexes)
+        NSAnimationContext.endGrouping()
     }
     
     // MARK: ScrollView
