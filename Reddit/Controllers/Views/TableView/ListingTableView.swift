@@ -35,6 +35,8 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         }
     }
     
+    public var disableSelection = false
+    
     public var onRegisterActions: ((_ cell: TCellView, _ data: TData, _ index: Int) -> Void)?
     public var onSelect: ((TData, _ index: Int) -> Void)?
     public var onNearScrollBottom: (() -> Void)?
@@ -196,5 +198,13 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
             nearBottomFired = true
             onNearScrollBottom()
         }
+    }
+    
+    func tableView(_ tableView: NSTableView, selectionIndexesForProposedSelection proposedSelectionIndexes: IndexSet) -> IndexSet {
+        if disableSelection {
+            return IndexSet()
+        }
+        
+        return proposedSelectionIndexes
     }
 }

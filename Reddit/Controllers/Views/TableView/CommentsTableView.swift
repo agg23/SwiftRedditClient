@@ -20,6 +20,15 @@ class CommentsTableView: ListingTableView<DisplayedComment, CommentTableViewRow>
         }
     }
     
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        self.disableSelection = true
+    }
+    
+    required init?(coder decoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     public func setComments(_ comments: [Comment]) {
         data = commentPreTraversal(with: comments, initialDepth: 0)
     }
