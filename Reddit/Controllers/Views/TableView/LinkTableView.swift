@@ -22,24 +22,22 @@ class LinkTableView: ListingTableView<Link, LinkTableViewRow> {
         
         if value.thumbnail != "" && value.thumbnail != "self" {
             ImageCache.shared.image(for: value.thumbnail) { result in
-                if let error = result.error {
+                switch result {
+                case .failure(let error):
                     print(error)
-                    return
+                case .success(let imageFetchResult):
+                    var columnIndex = 0
+                    
+                    if let tableColumn = tableColumn {
+                        columnIndex = tableView.tableColumns.firstIndex(of: tableColumn) ?? 0
+                    }
+                    
+                    guard let rowViewToUpdate = self.tableView.view(atColumn: columnIndex, row: row, makeIfNecessary: false) as! LinkTableViewRow? else {
+                        return
+                    }
+                    
+                    rowViewToUpdate.image = imageFetchResult.image
                 }
-                
-                let imageFetchResult = result.value
-                
-                var columnIndex = 0
-                
-                if let tableColumn = tableColumn {
-                    columnIndex = tableView.tableColumns.firstIndex(of: tableColumn) ?? 0
-                }
-                
-                guard let rowViewToUpdate = self.tableView.view(atColumn: columnIndex, row: row, makeIfNecessary: false) as! LinkTableViewRow? else {
-                    return
-                }
-                
-                rowViewToUpdate.image = imageFetchResult?.image
             }
         }
         

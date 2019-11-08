@@ -18,18 +18,15 @@ class RedditAPI: MoyaProvider<RedditAPITarget> {
     var shouldAuthenticate = false
     weak var authenticationWindow: NSWindow?
     
-    let sessionManager: SessionManager
+    let sessionManager: Session
     let oAuth = OAuthManager.shared.redditOAuth
     
     let oAuthUrl = URL(string: "https://oauth.reddit.com")!
     
     init() {
-        sessionManager = SessionManager()
-        super.init(manager: sessionManager)
-
         let retrier = OAuthRetryHandler(oauth2: oAuth)
-        sessionManager.adapter = retrier
-        sessionManager.retrier = retrier
+        sessionManager = Session(interceptor: retrier)
+        super.init(session: sessionManager)
     }
     
     override func endpoint(_ target: RedditAPITarget) -> Endpoint {

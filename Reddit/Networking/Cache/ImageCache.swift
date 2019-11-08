@@ -14,7 +14,7 @@ class ImageCache {
     
     var cache: [String: ImageFetchResult] = [:]
     
-    func image(for urlString: String, completionHandler: @escaping (Result<ImageFetchResult>) -> Void) {
+    func image(for urlString: String, completionHandler: @escaping (Result<ImageFetchResult, Error>) -> Void) {
         let cachedResult = cache[urlString]
         
         if let cachedResult = cachedResult {
@@ -25,7 +25,7 @@ class ImageCache {
             return
         }
         
-        Alamofire.request(url).response { response in
+        AF.request(url).response { response in
             guard let imageData = response.data else {
                 completionHandler(.failure(FetchError.imageRetrivalError))
                 return
