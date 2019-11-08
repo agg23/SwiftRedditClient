@@ -30,7 +30,8 @@ class CommentsTableView: ListingTableView<DisplayedComment, CommentTableViewRow>
     }
     
     public func setComments(_ comments: [Comment]) {
-        data = commentPreTraversal(with: comments, initialDepth: 0)
+        let displayCommentsArray = displayComments(from: comments, depth: 0)
+        data = commentPreTraversal(with: displayCommentsArray)
     }
     
     public func insertComments(_ comments: [Comment], at index: Int, removingIndex: Bool = false) {
@@ -42,7 +43,8 @@ class CommentsTableView: ListingTableView<DisplayedComment, CommentTableViewRow>
             data?.remove(at: index)
         }
         
-        let expandedComments = commentPreTraversal(with: comments, initialDepth: elementAtIndex.level)
+        let displayCommentsArray = displayComments(from: comments, depth: elementAtIndex.level)
+        let expandedComments = commentPreTraversal(with: displayCommentsArray)
         data?.insert(contentsOf: expandedComments, at: index)
     }
     
@@ -50,17 +52,25 @@ class CommentsTableView: ListingTableView<DisplayedComment, CommentTableViewRow>
         data?.removeSubrange(range)
     }
     
-    func commentPreTraversal(with comments: [Comment], initialDepth: Int) -> [DisplayedComment] {
+    func displayComments(from comments: [Comment], depth: Int) -> [DisplayedComment] {
+        return comments.reversed().map { comment in
+            return DisplayedComment(comment: comment, level: depth, more: nil)
+        }
+    }
+    
+    func commentPreTraversal(with nestedComments: [DisplayedComment]) -> [DisplayedComment] {
         var flattenedComments: [DisplayedComment] = []
         
         var stack: [DisplayedComment] = []
         
-        // Add top level comments
-        stack.append(contentsOf: comments.reversed().map { comment in
-            return DisplayedComment(comment: comment, level: initialDepth, more: nil)
-        })
+        stack.append(contentsOf: nestedComments)
         
         while stack.count > 0, let displayComment = stack.popLast() {
+            // TODO: Save nested display comments for later re-parsing
+            guard !displayComment.collapsed else {
+                continue
+            }
+            
             flattenedComments.append(displayComment)
             
             guard let replies = displayComment.comment?.replies else {

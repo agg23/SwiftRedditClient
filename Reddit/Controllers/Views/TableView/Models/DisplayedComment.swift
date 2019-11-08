@@ -12,4 +12,5 @@ struct DisplayedComment {
     let comment: Comment?
     let level: Int
     let more: CommentMore?
+    let collapsed: Bool = false
 }
