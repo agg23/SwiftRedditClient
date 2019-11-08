@@ -23,6 +23,9 @@ class CommentTableViewRow: ListingTableViewRow<DisplayedComment> {
             }
             
             usernameLabel.stringValue = data.comment?.author ?? ""
+            
+            let score = data.comment?.score ?? 0
+            scoreLabel.stringValue = "\(score) point\(score != 1 ? "s" : "")"
             textLabel.stringValue = data.comment?.body ?? (data.more != nil ? "Show more" : "")
             indentSpacer.snp.updateConstraints { make in
                 make.width.equalTo(levelWidth(for: data.level))
@@ -33,6 +36,7 @@ class CommentTableViewRow: ListingTableViewRow<DisplayedComment> {
     let indentSpacer = NSView()
     let contentView = NSView()
     let usernameLabel = NSLabel()
+    let scoreLabel = NSLabel()
     let textLabel = NSLabel()
     
     override init(frame frameRect: NSRect) {
@@ -42,6 +46,7 @@ class CommentTableViewRow: ListingTableViewRow<DisplayedComment> {
         addSubview(contentView)
         
         contentView.addSubview(usernameLabel)
+        contentView.addSubview(scoreLabel)
         contentView.addSubview(textLabel)
         
         indentSpacer.snp.makeConstraints { make in
@@ -55,13 +60,20 @@ class CommentTableViewRow: ListingTableViewRow<DisplayedComment> {
             make.left.equalTo(indentSpacer.snp.right)
             make.right.equalTo(self.snp.rightMargin)
             make.top.equalTo(self.snp.topMargin)
-            make.bottom.equalTo(self.snp.bottomMargin)
+            make.bottom.equalTo(self.snp.bottomMargin).offset(-10)
         }
         
+        usernameLabel.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
         usernameLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(contentView.snp.rightMargin)
-            make.right.equalTo(contentView.snp.rightMargin)
+            make.left.equalTo(contentView.snp.leftMargin)
             make.top.equalTo(contentView.snp.topMargin)
+        }
+        
+        scoreLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(usernameLabel.snp.right).offset(4)
+            make.right.equalTo(contentView.snp.rightMargin)
+            make.top.equalTo(contentView.snp.topMargin).offset(2)
         }
         
         textLabel.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -72,6 +84,9 @@ class CommentTableViewRow: ListingTableViewRow<DisplayedComment> {
             make.top.equalTo(usernameLabel.snp.bottom).offset(6)
             make.bottom.equalTo(contentView.snp.bottomMargin)
         }
+        
+        usernameLabel.font = .systemFont(ofSize: 12)
+        scoreLabel.font = .systemFont(ofSize: 10)
         
         // TODO: Fix
         usernameLabel.target = self
