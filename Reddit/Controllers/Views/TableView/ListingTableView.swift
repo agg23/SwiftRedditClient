@@ -24,7 +24,7 @@ class ListingTableView<TData, TCellView: ListingTableViewRow<TData>>: NSView, NS
         }
     }
     
-    var _backgroundColor: NSColor = .white
+    var _backgroundColor: NSColor = .textBackgroundColor
     public var backgroundColor: NSColor {
         get {
             return _backgroundColor
