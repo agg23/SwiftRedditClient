@@ -45,7 +45,7 @@ class RedditAPI: MoyaProvider<RedditAPITarget> {
         return Promise<Void> { (resolver) in
             oAuth.authConfig.authorizeEmbedded = true
             oAuth.authConfig.authorizeContext = contextWindow
-            oAuth.authorize(params: nil) { (json, error) in
+            oAuth.authorize(params: ["duration": "permanent"]) { (json, error) in
                 debugPrint("auth: json:\(String(describing: json)). error: \(String(describing: error))")
                 resolver.resolve(error)
             }

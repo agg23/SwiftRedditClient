@@ -19,7 +19,11 @@ struct OAuthManager {
         "token_uri": "https://www.reddit.com/api/v1/access_token",
         "redirect_uris": ["reddit://oauth"],
         "scope": "identity,edit,flair, modconfig,modflair,modlog,modposts,modwiki,mysubreddits,privatemessages,read,report,save,submit,subscribe,vote,wikiedit,wikiread",
-        "keychain": true,         // if you DON'T want keychain integration
-        "parameters": ["response_type": "code", "duration": "permanent"],
+        "keychain": true,
         ] as OAuth2JSON)
+    
+    init() {
+        redditOAuth.logger = OAuth2DebugLogger(.trace)
+        redditOAuth.authorizer = CustomSheetAuthorizer(oauth2: redditOAuth)
+    }
 }
