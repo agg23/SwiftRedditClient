@@ -14,17 +14,19 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     let viewController = MainViewController()
     @IBOutlet weak var window: NSWindow!
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Insert code here to initialize your application
-        RedditAPI.shared.shouldAuthenticate = true
-        RedditAPI.shared.authenticationWindow = window
-        
+    func applicationWillFinishLaunching(_ notification: Notification) {
         window.titleVisibility = .hidden
         
         window.minSize = NSSize(width: 1000, height: 700)
         window.contentViewController = viewController
         
         window.toolbar = ToolbarController.shared.toolbar
+    }
+
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
+        // Insert code here to initialize your application
+        RedditAPI.shared.shouldAuthenticate = true
+        RedditAPI.shared.authenticationWindow = window
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
