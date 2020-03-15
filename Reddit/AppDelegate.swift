@@ -15,6 +15,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     @IBOutlet weak var window: NSWindow!
 
     func applicationWillFinishLaunching(_ notification: Notification) {
+        RedditAPI.shared.shouldAuthenticate = true
+        RedditAPI.shared.authenticationWindow = window
+        
         window.titleVisibility = .hidden
         
         window.minSize = NSSize(width: 1000, height: 700)
@@ -25,8 +28,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
-        RedditAPI.shared.shouldAuthenticate = true
-        RedditAPI.shared.authenticationWindow = window
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

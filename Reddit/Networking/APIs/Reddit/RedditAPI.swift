@@ -59,7 +59,16 @@ class RedditAPI: MoyaProvider<RedditAPITarget> {
         
         let window = contextWindow != nil ? contextWindow : authenticationWindow
         
-        let requestPromise = Promise<R> { (resolver) in
+        if shouldAuthenticate {
+            return authenticate(with: window).then { () -> Promise<R> in self.buildRequestPromise(from: target)}
+        }
+        
+        return buildRequestPromise(from: target)
+    }
+
+    private func buildRequestPromise<R: Decodable>(from target: Target) -> Promise<R> {
+        return Promise<R> { (resolver) in
+            print("Resolving \(target)")
             self.request(target, completion: { (result) in
                 switch result {
                 case let .success(response):
@@ -78,16 +87,5 @@ class RedditAPI: MoyaProvider<RedditAPITarget> {
                 }
             })
         }
-        
-        if shouldAuthenticate {
-            return firstly { () -> Promise<Void> in
-                authenticate(with: window)
-            }.then { () -> Promise<R> in
-                requestPromise
-            }
-        }
-        
-        return requestPromise
     }
-
 }
